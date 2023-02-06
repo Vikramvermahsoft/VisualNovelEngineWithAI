@@ -6,14 +6,16 @@ class Reader():
         self.name = 'Reader'
         self.current_page = 0
         self.timeline_content = ""
+        self.latest_page = 1
+        self.total_pages = 2
         print('Reader created')
     def timeline_read(self,timeline_id):
         self.current_page = timeline_id
-
         f = open('timeline.json')
         data = json.load(f)
         print(timeline_id)
         print(data['content'][self.current_page])
+        self.total_pages = len(data['content'])-1
         #for i in data['content']:
         #    print(timeline_id)
         #    print(i) 

@@ -18,21 +18,24 @@ class Window(pyglet.window.Window):
             pyglet.app.exit()
     def on_mouse_scroll(self,x,y,scroll_x,scroll_y):
         print(scroll_y)
-        if scroll_y > 0:
+        if scroll_y > 0 and reader.current_page > 0:
             reader.current_page = reader.current_page - 1
             reader.timeline_read(reader.current_page)
-
+            
     def on_draw(self):
         self.clear()
         reader.label_draw()
-        if mousebuttons[mouse.LEFT] is True:
+        if mousebuttons[mouse.LEFT] is True and reader.current_page < reader.total_pages:
             print('left click mouse')
             reader.current_page = reader.current_page + 1
+            if reader.current_page > reader.latest_page:
+                reader.latest_page = reader.latest_page + 1
             reader.timeline_read(reader.current_page)
             time.sleep(0.1)
+            print(reader.latest_page)
+            print(reader.total_pages)
         if mousebuttons[mouse.RIGHT] is True:
             print('right click mouse')
-
 
 if __name__ == '__main__':
     window = Window(style=pyglet.window.Window.WINDOW_STYLE_BORDERLESS)
@@ -42,7 +45,7 @@ if __name__ == '__main__':
     window.push_handlers(mousebuttons)
     #glClearColor(0.5,1,0.7,1)
     pyglet.app.run()
-    print('app run')
+    print('app ran')
 
 '''Modificaiton of on_draw event in Window
     to draw images, UI, textbox
