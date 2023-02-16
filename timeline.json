@@ -1,6 +1,12 @@
 {
-	"chapter":1,
-	"content":["This is the first line of the story",
-	"Here is the second line",
-	"And the third","Fourth", "Fifth", "Sixth", "Seventh"]
+        "chapter1":{
+                "page0":["This is the first line of the story"]
+       ,
+        
+                "page1":["uhh test"]
+
+       ,
+                "page2":["..."]}
+
 }
+
