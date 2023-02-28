@@ -1,6 +1,10 @@
 import pyglet
 import json
+from pyglet import image
 
+'''Classes file is temporary and classes will be merged to main.py unless i can find a way to access Window as a variable without instancing it here '''
+window = pyglet.window.Window()
+window.close()
 class Reader():
     def __init__(self):
         self.name = 'Reader'
@@ -27,16 +31,23 @@ class Reader():
     def label_draw(self):
         label = pyglet.text.Label(self.timeline_content,
                 font_name='Times New Roman',
+                font_size=36,
+                x=window.width//2,y=window.height//2,
                 anchor_x = 'center', anchor_y='center')
         label.draw()
+        #letter loading: label draws character array built from timeline content by method when LATEST
         if self.current_page < self.latest_page:
             print('BACKLOG')
         if self.current_page == self.latest_page:
             print('LATEST')
         #print('label drew')
         #print('timeline_id')
+    def img_draw(self):
+        #timeline cues direct reader to load and blit and animate everything inside img_draw. img_draw must be made more robust and image files must draw from elsewhere
+        pic = image.load('picture.png')
+        pic.blit(0,0)
+
     def textbox(self, timeline_id):
         print(timeline_id)
     def list_of_actions(timeline_id):
         print(timeline_id)
-

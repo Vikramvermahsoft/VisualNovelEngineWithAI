@@ -5,6 +5,8 @@ from pyglet.window import key
 import classes
 import time
 
+'''Due to strange bug, Window class must be defined in main.py rather than among the rest in classes.py'''
+
 class Window(pyglet.window.Window):
     def __init__(self,*args,**kwargs):
         super().__init__(*args,**kwargs)
@@ -25,6 +27,7 @@ class Window(pyglet.window.Window):
     def on_draw(self):
         self.clear()
         reader.label_draw()
+        reader.img_draw()
         if mousebuttons[mouse.LEFT] is True and reader.current_page < reader.total_pages:
             print('left click mouse')
             reader.current_page = reader.current_page + 1
