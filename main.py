@@ -28,8 +28,8 @@ class Window(pyglet.window.Window):
     def on_draw(self):
         self.clear()
         #get information from main to present menus
-        reader.label_draw()
         reader.letter_load()
+        reader.label_draw()
         reader.img_draw()
 
         #mouse click logic; detecting mouse on every draw frame
@@ -40,6 +40,8 @@ class Window(pyglet.window.Window):
                 reader.latest_page = reader.latest_page + 1
             reader.timeline_read(reader.current_page)
             time.sleep(0.1)
+            reader.letter_content = "";
+            reader.letter_content_index = 0
             print(reader.latest_page)
             print(reader.total_pages)
         if mousebuttons[mouse.RIGHT] is True:

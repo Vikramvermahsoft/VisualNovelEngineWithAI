@@ -13,6 +13,7 @@ class Reader():
         self.current_chapter=1
         self.timeline_content = ""
         self.label_content = ""
+        self.label_content_index = 0
         self.latest_page = 0
         self.total_pages = 2
         print('Reader created')
@@ -34,7 +35,7 @@ class Reader():
         
         label = pyglet.text.Label(self.label_content,
                 font_name='Times New Roman',
-                font_size=36,
+                font_size=12,
                 x=window.width//2,y=window.height//2,
                 anchor_x = 'center', anchor_y='center')
         label.draw()
@@ -46,14 +47,19 @@ class Reader():
     def letter_load(self):
         if self.current_page < self.latest_page:
             print('BACKLOG')
+            self.label_content_index = 0
             self.label_content = self.timeline_content
         if self.current_page == self.latest_page:
             print('LATEST')
-            self.label_content = self.timeline_content
+            timeline_array = list(self.timeline_content);
+            if self.label_content_index > len(timeline_array)-1:
+                self.label_content = self.timeline_content
+                return
+            else:
+                self.label_content = self.label_content + timeline_array[self.label_content_index]
+                self.label_content_index = self.label_content_index + 1
+            
             '''
-            self.label_content = ""
-            for i in self.timeline_content:
-                letter = ""
                 letter = self.label_content + letter + i
                 self.label_content = str(letter) 
                 time.sleep(0.1)
