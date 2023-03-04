@@ -10,6 +10,7 @@ import time
 class Window(pyglet.window.Window):
     def __init__(self,*args,**kwargs):
         super().__init__(*args,**kwargs)
+        print('Window created')
     def on_key_press(self, KEY, MOD):
         print(KEY)
         if KEY == key.LCTRL:
@@ -26,8 +27,12 @@ class Window(pyglet.window.Window):
             
     def on_draw(self):
         self.clear()
+        #get information from main to present menus
         reader.label_draw()
+        reader.letter_load()
         reader.img_draw()
+
+        #mouse click logic; detecting mouse on every draw frame
         if mousebuttons[mouse.LEFT] is True and reader.current_page < reader.total_pages:
             print('left click mouse')
             reader.current_page = reader.current_page + 1
@@ -50,6 +55,7 @@ if __name__ == '__main__':
     print(current_timeline)
     window.push_handlers(mousebuttons)
     #glClearColor(0.5,1,0.7,1)
+    print('app will run')
     pyglet.app.run()
     print('app ran')
 
