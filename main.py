@@ -11,6 +11,29 @@ class Window(pyglet.window.Window):
     def __init__(self,*args,**kwargs):
         super().__init__(*args,**kwargs)
         print('Window created')
+        self.game_state = 0
+        print('window test')
+    def game_state_handler(state_variable):
+        if state_variable == 0:
+            self.game_state = 0
+            #reset
+        if state_variable == 1:
+            self.game_state = 1
+            #menu starts
+
+            #save reader state/save data
+            #close reader and other 
+        if state_variable == 2:
+            self.game_state = 2
+            #play
+            #open reader
+
+        #game state 0 = startup
+        #game state 1 = home menu
+        #game state 2 = play
+        #
+        pass
+        
     def on_key_press(self, KEY, MOD):
         print(KEY)
         if KEY == key.LCTRL:
@@ -27,7 +50,8 @@ class Window(pyglet.window.Window):
             
     def on_draw(self):
         self.clear()
-        #get information from main to present menus
+        print(self.game_state)
+        #get load information from main to present menus
         reader.letter_load()
         reader.label_draw()
         reader.img_draw()
@@ -35,22 +59,33 @@ class Window(pyglet.window.Window):
         #mouse click logic; detecting mouse on every draw frame
         if mousebuttons[mouse.LEFT] is True and reader.current_page < reader.total_pages:
             print('left click mouse')
+            reader.letter_content_index = 0
             reader.current_page = reader.current_page + 1
             if reader.current_page > reader.latest_page:
                 reader.latest_page = reader.latest_page + 1
             reader.timeline_read(reader.current_page)
             time.sleep(0.1)
             reader.letter_content = "";
-            reader.letter_content_index = 0
             print(reader.latest_page)
             print(reader.total_pages)
         if mousebuttons[mouse.RIGHT] is True:
             print('right click mouse')
 
 if __name__ == '__main__':
+    
     window = Window(style=pyglet.window.Window.WINDOW_STYLE_BORDERLESS)
+    print('main test')
     mousebuttons = mouse.MouseStateHandler()
+    #intros in game state 0, click to skip
+    #if game_state = 0:
+    #play intros
+    #time.sleep()->game_state = 1
+    #when game state 0 reaches end, switch to game state 1 and begin menu
+    #load save data somewhere in here
+    #if game_state = 1
+    #load menu buttons
     reader = classes.Reader()
+    print('reader test')
     #page = classes.Page()
     #start_menu = classes.Start_menu()
     current_timeline = reader.timeline_read(reader.current_page)

@@ -4,6 +4,7 @@ from pyglet import image
 import time
 
 '''Classes file is temporary and classes will be merged to main.py unless i can find a way to access Window as a variable without instancing it here '''
+
 window = pyglet.window.Window()
 window.close()
 class Reader():
@@ -75,3 +76,8 @@ class Reader():
         print(timeline_id)
     def list_of_actions(timeline_id):
         print(timeline_id)
+    def turn_page():
+        pass
+    def listen():
+        pass
+
