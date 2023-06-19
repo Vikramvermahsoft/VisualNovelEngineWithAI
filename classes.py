@@ -12,11 +12,15 @@ class Reader():
         self.name = 'Reader'
         self.current_page = 0
         self.current_chapter=1
+        #current page and chapter code for save/load
         self.timeline_content = ""
         self.label_content = ""
+        #timeline content uploaded from timeline.json, transfer to label content for display
         self.label_content_index = 0
         self.latest_page = 0
-        self.total_pages = 2
+        #latest page set to 0 every chapter? part of save load data?
+        self.total_pages = 0
+        #comes from timeline.json, how many pages in a chapter 
         print('Reader created')
     def timeline_read(self,timeline_id):
         self.current_page = timeline_id
@@ -42,10 +46,11 @@ class Reader():
         label.draw()
         
         #letter loading: label draws character array built from timeline content by method when LATEST
-        
+        print(self.timeline_content) 
         #print('label drew')
         #print('timeline_id')
     def letter_load(self):
+        print(self.current_page)
         if self.current_page < self.latest_page:
             print('BACKLOG')
             self.label_content_index = 0
@@ -59,7 +64,14 @@ class Reader():
             else:
                 self.label_content = self.label_content + timeline_array[self.label_content_index]
                 self.label_content_index = self.label_content_index + 1
-            
+                print('letter load test') 
+                print('label content=', self.label_content)
+                print('label content index = ', self.label_content_index)
+                print('timeline array= ', timeline_array)
+                print(timeline_array[self.label_content_index-1])
+               # if self.label_content_index >= len(timeline_array)-1:
+
+
             '''
                 letter = self.label_content + letter + i
                 self.label_content = str(letter) 

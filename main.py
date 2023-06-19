@@ -5,7 +5,7 @@ from pyglet.window import key
 import classes
 import time
 
-'''Due to strange bug, Window class must be defined in main.py rather than among the rest in classes.py'''
+'''Due to unknown reason, Window class must be defined in main.py rather than among the rest in classes.py'''
 
 class Window(pyglet.window.Window):
     def __init__(self,*args,**kwargs):
@@ -20,7 +20,6 @@ class Window(pyglet.window.Window):
         if state_variable == 1:
             self.game_state = 1
             #menu starts
-
             #save reader state/save data
             #close reader and other 
         if state_variable == 2:
@@ -31,7 +30,6 @@ class Window(pyglet.window.Window):
         #game state 0 = startup
         #game state 1 = home menu
         #game state 2 = play
-        #
         pass
         
     def on_key_press(self, KEY, MOD):
@@ -51,31 +49,43 @@ class Window(pyglet.window.Window):
     def on_draw(self):
         self.clear()
         print(self.game_state)
+        if self.game_state == 0:
+            #bootup
+            self.game_state = 1
+        if self.game_state == 1:
+            #startmenu
+            #start menu binary choice tree
+                if keys[key.SPACE]:
+                #if mousebuttons[mouse.LEFT] is True:    
+                    self.game_state = 2
+
         #get load information from main to present menus
-        reader.letter_load()
-        reader.label_draw()
-        reader.img_draw()
+        if self.game_state == 2:
+            reader.letter_load()
+            reader.label_draw()
+            reader.img_draw()
 
         #mouse click logic; detecting mouse on every draw frame
-        if mousebuttons[mouse.LEFT] is True and reader.current_page < reader.total_pages:
-            print('left click mouse')
-            reader.letter_content_index = 0
-            reader.current_page = reader.current_page + 1
-            if reader.current_page > reader.latest_page:
-                reader.latest_page = reader.latest_page + 1
-            reader.timeline_read(reader.current_page)
-            time.sleep(0.1)
-            reader.letter_content = "";
-            print(reader.latest_page)
-            print(reader.total_pages)
-        if mousebuttons[mouse.RIGHT] is True:
-            print('right click mouse')
+            if mousebuttons[mouse.LEFT] is True and reader.current_page < reader.total_pages:
+                print('left click mouse')
+                reader.label_content_index = 0
+                reader.current_page = reader.current_page + 1
+                if reader.current_page > reader.latest_page:
+                    reader.latest_page = reader.latest_page + 1
+                reader.timeline_read(reader.current_page)
+                time.sleep(0.1)
+                reader.label_content = "";
+                print(reader.latest_page)
+                print(reader.total_pages)
+            if mousebuttons[mouse.RIGHT] is True:
+                print('right click mouse')
 
 if __name__ == '__main__':
     
     window = Window(style=pyglet.window.Window.WINDOW_STYLE_BORDERLESS)
     print('main test')
     mousebuttons = mouse.MouseStateHandler()
+    keys = key.KeyStateHandler()
     #intros in game state 0, click to skip
     #if game_state = 0:
     #play intros
@@ -91,12 +101,13 @@ if __name__ == '__main__':
     current_timeline = reader.timeline_read(reader.current_page)
     print(current_timeline)
     window.push_handlers(mousebuttons)
+    window.push_handlers(keys)
     #glClearColor(0.5,1,0.7,1)
     print('app will run')
     pyglet.app.run()
     print('app ran')
 
-'''Modificaiton of on_draw event in Window
+'''Modification of on_draw event in Window
     to draw images, UI, textbox
     Anything that changes to user needs to ultimately be updated here
     All controls go here as well
