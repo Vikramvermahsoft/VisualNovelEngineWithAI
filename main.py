@@ -48,12 +48,13 @@ class Window(pyglet.window.Window):
             
     def on_draw(self):
         self.clear()
-        print(self.game_state)
+        #print(self.game_state)
         if self.game_state == 0:
             #bootup
             self.game_state = 1
         if self.game_state == 1:
             #startmenu
+            # pyglet.text.Label(  )
             #start menu binary choice tree
                 if keys[key.SPACE]:
                 #if mousebuttons[mouse.LEFT] is True:    
@@ -66,20 +67,50 @@ class Window(pyglet.window.Window):
             reader.img_draw()
 
         #mouse click logic; detecting mouse on every draw frame
-            if mousebuttons[mouse.LEFT] is True and reader.current_page < reader.total_pages:
+            if mousebuttons[mouse.LEFT] is True:
                 print('left click mouse')
-                reader.label_content_index = 0
-                reader.current_page = reader.current_page + 1
-                if reader.current_page > reader.latest_page:
-                    reader.latest_page = reader.latest_page + 1
+                if reader.current_page < reader.total_pages:
+                    print('turn page')         
+                    reader.label_content_index = 0
+                    reader.label_content = "";
+                    reader.current_page = reader.current_page + 1
+                    if reader.current_page > reader.latest_page:
+                        reader.latest_page = reader.latest_page + 1
+                if reader.current_page == reader.total_pages:
+                    print('last page in chapter')
+                    #reader.current_page = reader.current_page + 1
+                    time.sleep(0.1)
+                    #reader.current_page = reader.total_pages + 2
+                    reader.current_chapter = reader.current_chapter + 1
+                    reader.latest_page = 0
+                    reader.current_page = 0
+                    
+
+                #reader.current_chapter = reader.current_chapter + 1
                 reader.timeline_read(reader.current_page)
+               
                 time.sleep(0.1)
-                reader.label_content = "";
-                print(reader.latest_page)
-                print(reader.total_pages)
+                #reader.label_content = "";
+                #print(reader.latest_page)
+                #print(reader.total_pages)
             if mousebuttons[mouse.RIGHT] is True:
                 print('right click mouse')
-
+                print(reader.audio_que)
+                #if mousebuttons[mouse.LEFT] is False and reader.current_page == reader.total_pages:
+                #print('last page in chapter')
+                #reader.timeline_read(reader.current_page)
+            '''if reader.current_page == reader.total_pages:
+                print('last page in chapter')
+                reader.timeline_read(reader.current_page)
+                time.sleep(0.1)
+                reader.current_page = reader.current_page + 1
+            if mousebuttons[mouse.LEFT] is True and reader.current_page > reader.total_pages:
+                print('new chapter')
+                reader.current_chapter = reader.current_chapter + 1
+                reader.current_page = 0
+                reader.latest_page = 0
+                reader.timeline_read(reader.current_page)
+                '''
 if __name__ == '__main__':
     
     window = Window(style=pyglet.window.Window.WINDOW_STYLE_BORDERLESS)

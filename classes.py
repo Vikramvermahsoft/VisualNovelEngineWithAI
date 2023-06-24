@@ -11,30 +11,36 @@ class Reader():
     def __init__(self):
         self.name = 'Reader'
         self.current_page = 0
-        self.current_chapter=1
+        self.current_chapter=0
         #current page and chapter code for save/load
         self.timeline_content = ""
         self.label_content = ""
         #timeline content uploaded from timeline.json, transfer to label content for display
         self.label_content_index = 0
         self.latest_page = 0
-        #latest page set to 0 every chapter? part of save load data?
+        #latest page set to 0 every chapter. part of save load data?
         self.total_pages = 0
         #comes from timeline.json, how many pages in a chapter 
+        self.audio_que = ""
         print('Reader created')
     def timeline_read(self,timeline_id):
         self.current_page = timeline_id
-        chapter_num = 'chapter'+str(self.current_chapter)
+        #chapter_num = 'chapter'+str(self.current_chapter)
+        chapter_num = self.current_chapter
         page_num = str(self.current_page)
         f = open('timeline.json')
         data = json.load(f)
         print(timeline_id)
+        print(data)
+        print(data[0])
         print(data[chapter_num]['page%s'%page_num])
+        #print(data[chapter_num][page_num])
         self.total_pages = len(data[chapter_num])-1
         #for i in data['content']:
         #    print(timeline_id)
         #    print(i) 
         self.timeline_content = data[chapter_num]['page%s'%page_num][0] 
+        self.audio_que = data[chapter_num]['page%s'%page_num][1]
         f.close()
     def label_draw(self):
         
