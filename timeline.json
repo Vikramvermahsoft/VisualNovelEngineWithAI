@@ -2,11 +2,11 @@
         {
 		"page0":["This is the first line of the story","Hello Test"]
 		,
-                "page1":["This second line of the story is a test that needs to be much longer than the first"]
+                "page1":["This second line of the story is a test that needs to be much longer than the first",""]
 		,
-                "page2":["..."]
+                "page2":["...",""]
 		,
-		"page3":["chapter end"]
+		"page3":["chapter end",""]
 	}		
 ,
 

@@ -45,7 +45,9 @@ class Window(pyglet.window.Window):
         if scroll_y > 0 and reader.current_page > 0:
             reader.current_page = reader.current_page - 1
             reader.timeline_read(reader.current_page)
-            
+        if scroll_y < 0 and reader.current_page < reader.latest_page-1:
+            reader.current_page = reader.current_page + 1
+            reader.timeline_read(reader.current_page)
     def on_draw(self):
         self.clear()
         #print(self.game_state)
@@ -54,14 +56,19 @@ class Window(pyglet.window.Window):
             self.game_state = 1
         if self.game_state == 1:
             #startmenu
-            # pyglet.text.Label(  )
+            menu_label = pyglet.text.Label('Press SPACE to begin',
+                          font_name='Times New Roman',
+                          font_size=36,
+                          x=10, y=10)
+            menu_label.draw()
             #start menu binary choice tree
-                if keys[key.SPACE]:
+            if keys[key.SPACE]:
                 #if mousebuttons[mouse.LEFT] is True:    
-                    self.game_state = 2
+                self.game_state = 2
 
         #get load information from main to present menus
         if self.game_state == 2:
+
             reader.letter_load()
             reader.label_draw()
             reader.img_draw()
@@ -88,14 +95,13 @@ class Window(pyglet.window.Window):
 
                 #reader.current_chapter = reader.current_chapter + 1
                 reader.timeline_read(reader.current_page)
-               
+                #timeline_read is method for displaying line; takes page num
                 time.sleep(0.1)
                 #reader.label_content = "";
                 #print(reader.latest_page)
                 #print(reader.total_pages)
             if mousebuttons[mouse.RIGHT] is True:
                 print('right click mouse')
-                print(reader.audio_que)
                 #if mousebuttons[mouse.LEFT] is False and reader.current_page == reader.total_pages:
                 #print('last page in chapter')
                 #reader.timeline_read(reader.current_page)

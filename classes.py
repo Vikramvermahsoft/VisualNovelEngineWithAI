@@ -41,9 +41,12 @@ class Reader():
         #    print(i) 
         self.timeline_content = data[chapter_num]['page%s'%page_num][0] 
         self.audio_que = data[chapter_num]['page%s'%page_num][1]
+        #animation_que = 
+        #below is logic to play sound with audio player whenever JSON includes data after the line data. logic for determining playback functions and sound selection in AudioPlayer
+        if len(self.audio_que) > 0:
+            AudioPlayer.play(self.audio_que)
         f.close()
     def label_draw(self):
-        
         label = pyglet.text.Label(self.label_content,
                 font_name='Times New Roman',
                 font_size=12,
@@ -66,15 +69,16 @@ class Reader():
             timeline_array = list(self.timeline_content);
             if self.label_content_index > len(timeline_array)-1:
                 self.label_content = self.timeline_content
+                #turn page animation trigger
                 return
             else:
                 self.label_content = self.label_content + timeline_array[self.label_content_index]
                 self.label_content_index = self.label_content_index + 1
-                print('letter load test') 
-                print('label content=', self.label_content)
-                print('label content index = ', self.label_content_index)
-                print('timeline array= ', timeline_array)
-                print(timeline_array[self.label_content_index-1])
+                #print('letter load test') 
+                #print('label content=', self.label_content)
+                #print('label content index = ', self.label_content_index)
+                #print('timeline array= ', timeline_array)
+                #print(timeline_array[self.label_content_index-1])
                # if self.label_content_index >= len(timeline_array)-1:
 
 
@@ -89,13 +93,25 @@ class Reader():
         #timeline cues direct reader to load and blit and animate everything inside img_draw. img_draw must be made more robust and image files must draw from elsewhere
         pic = image.load('picture.png')
         pic.blit(0,0)
-
     def textbox(self, timeline_id):
         print(timeline_id)
     def list_of_actions(timeline_id):
         print(timeline_id)
     def turn_page():
+        #loading pic while letter load
+        #pic = image.load(turn page indicator.png)
+        #pic.blit(0,0)
         pass
     def listen():
+        pass
+    def autoplayer():
+        pass
+class AudioPlayer():
+    def play(audio_que):
+        print('AUDIO QUE:'+audio_que)
+        #check que string for commands: STOP, START, FADE, VOICE, BGM
+        #VOICE LINE stop currently playing and play new ones
+class AnimPlayer():
+    def play():
         pass
 
