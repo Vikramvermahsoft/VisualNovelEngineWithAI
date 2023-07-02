@@ -41,7 +41,9 @@ class Reader():
         #    print(i) 
         self.timeline_content = data[chapter_num]['page%s'%page_num][0] 
         self.audio_que = data[chapter_num]['page%s'%page_num][1]
-        #animation_que = 
+        animation_que = data[chapter_num]['page%s'%page_num][2]
+        print(animation_que)
+        print(type(animation_que))
         #below is logic to play sound with audio player whenever JSON includes data after the line data. logic for determining playback functions and sound selection in AudioPlayer
         if len(self.audio_que) > 0:
             AudioPlayer.play(self.audio_que)
