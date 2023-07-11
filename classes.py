@@ -110,7 +110,13 @@ class Reader():
         pass
 class AudioPlayer():
     def play(audio_que):
-        print('AUDIO QUE:'+audio_que)
+        print('AUDIO QUE:'+audio_que[1])
+        if audio_que[0] == 'PLAY':
+            source = pyglet.media.load(audio_que[1])
+            player = pyglet.media.Player()
+            player.queue(source)
+            player.play()
+            print('playing'+audio_que[1])
         #check que string for commands: STOP, START, FADE, VOICE, BGM
         #VOICE LINE stop currently playing and play new ones
 class AnimPlayer():
