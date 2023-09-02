@@ -1,22 +1,30 @@
 [
         {
 		"page0":["This is the first line of the story",
-			["PLAY","theme0.wav"],
-			{
-				"frame1":"animationframe1",
-			 	"frame2":"animationframe2"
-			}
+			["PLAY","theme1.wav"],
+			[
+			  "pracposes00011.png",
+			 	"pracposes00012.png",
+        "pracposes00020.png",
+        "pracposes00024.png",
+        "pracposes00028.png",
+        "pracposes00036.png"
+			]
 		]
 		,
-                "page1":["This second line of the story is a test that needs to be much longer than the first",
-			[""],
-			{
-				"frame1":"animationframe3",
-				"frame2":"animationframe4"
-			}
+    "page1":["This second line of the story is a test that needs to be much longer than the first",
+			["PLAY","theme1.wav"],
+      [
+			  "pracposes00011.png",
+			 	"pracposes00012.png",
+        "pracposes00020.png",
+        "pracposes00024.png",
+        "pracposes00028.png",
+        "pracposes00036.png"
+			]
 		]
 		,
-                "page2":["...",
+    "page2":["...",
         ["STOP","theme0.wav"],
         {
           				"frame1":"animationframe3",
