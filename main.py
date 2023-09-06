@@ -1,3 +1,4 @@
+
 import pyglet
 import sys
 import os
@@ -65,6 +66,7 @@ class Window(pyglet.window.Window):
         if self.game_state == 3:
             reader.letter_load()
             reader.label_draw()
+            reader.img_draw()
 
         if mousebuttons[mouse.LEFT] is True:
             print('left click mouse')
@@ -209,6 +211,17 @@ class Reader():
     def img_draw(self):
         #timeline cues direct reader to load and blit and animate everything inside img_draw. img_draw must be made more robust and image files must draw from elsewhere
         print('img_draw called')
+        frames = self.animation_que
+        print(len(frames))
+        #image_array = self.image_array
+        count = self.animation_counter
+        if count < len(frames):
+            print(count)
+            current_pic = pyglet.image.load(frames[count])
+            #print(f"{current_pic} = CURRENT PIC")
+            #pic = image.load(current_pic)
+            pic = current_pic
+            pic.blit(0,0)
 
         '''
         frames = self.animation_que
@@ -391,11 +404,13 @@ if __name__ == '__main__':
             '''
             Animation code below. called every draw frame, if timeline->reader->image_array variable is not empty
             '''
+
             frames = reader.animation_que
             frames_length = len(frames)
             image_array = reader.image_array
             count = reader.animation_counter
 
+            '''
             if(len(image_array)>0):
 
             #current_animation = pyglet.image.Animation.from_image_sequence(image_array, duration = 0.1, loop=True)
@@ -405,7 +420,7 @@ if __name__ == '__main__':
                 )
                 sprite.scale = .25
 
-
+            '''
             #print(sprite)
             #print(image_array)
             #print(current_animation)
@@ -424,6 +439,7 @@ if __name__ == '__main__':
                     print('animation counter:{}'.format(count))
                     if count < frames_length:
                         print(count)
+                        '''
                         current_pic = pyglet.image.load(frames[count])
 
                         image_array.append(
@@ -432,6 +448,7 @@ if __name__ == '__main__':
                         )
                         print('appended {y}'.format(y=frames[count]))
                         print(len(image_array))
+                        '''
                         count = count + 1
                         reader.animation_counter = count
                         print('new count: {}'.format(count))
