@@ -1,6 +1,5 @@
 [
-        {
-		"page0":["This is the first line of the story",
+	{	"page0":["This is the first line of the story",
 			["PLAY","theme1.wav"],
 			[
 			  "pracposes00011.png",
@@ -26,18 +25,14 @@
 		,
     "page2":["...",
         ["STOP","theme0.wav"],
-        {
-          				"frame1":"animationframe3",
-          				"frame2":"animationframe4"
-        }
-      ]
-		,
+	[ 
+	]
+	
+      ],
 		"page3":["chapter end",
     [""],
-    {
-              "frame1":"animationframe3",
-              "frame2":"animationframe4"
-    }]
+    [
+    ]]
 	}
 ,
 	{

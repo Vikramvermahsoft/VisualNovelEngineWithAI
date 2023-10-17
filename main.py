@@ -149,7 +149,7 @@ class Reader():
         data = json.load(f)
         print(timeline_id)
         print(data)
-        print(data[0])
+        print(data[1])
         print(data[chapter_num]['page%s'%page_num])
         #print(data[chapter_num][page_num])
         self.total_pages = len(data[chapter_num])-1
