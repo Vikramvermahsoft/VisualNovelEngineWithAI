@@ -49,12 +49,14 @@ class Window(pyglet.window.Window):
 
     def on_mouse_scroll(self,x,y,scroll_x,scroll_y):
         print(scroll_y)
-        if scroll_y > 0 and reader.current_page > 0:
-            reader.current_page = reader.current_page - 1
-            reader.timeline_read(reader.current_page)
-        if scroll_y < 0 and reader.current_page < reader.latest_page-1:
-            reader.current_page = reader.current_page + 1
-            reader.timeline_read(reader.current_page)
+        if self.game_state == 3:
+            if scroll_y > 0 and reader.current_page > 0:
+                reader.current_page = reader.current_page - 1
+                reader.timeline_read(reader.current_page)
+            if scroll_y < 0 and reader.current_page < reader.latest_page-1:
+                reader.current_page = reader.current_page + 1
+                reader.timeline_read(reader.current_page)
+
 
     def on_draw(self):
         self.clear()
@@ -64,39 +66,63 @@ class Window(pyglet.window.Window):
         if self.game_state == 1:
             reader.menu_draw()
         if self.game_state == 3:
+            reader.img_draw()
             reader.letter_load()
             reader.label_draw()
-            reader.img_draw()
+
 
         if mousebuttons[mouse.LEFT] is True:
             print('left click mouse')
 
+            if self.game_state == 3:
+                if reader.current_page < reader.latest_page:
+                    reader.label_content = ""
+                    #turn page with BACKLOG
+                    reader.current_page = reader.current_page + 1
 
-            if reader.current_page < reader.total_pages:
-                print('turn page')
-                reader.label_content_index = 0
-                reader.label_content = "";
-                reader.current_page = reader.current_page + 1
-                if reader.current_page > reader.latest_page:
+                if reader.label_content_index < len(reader.timeline_array)-1:
+
+                    print('currently letterloading')
+                    #time.sleep(0.1)
+                    #skip letterloading
+                    #reader.label_content_index = 0
+                    reader.label_content = ""
+                    reader.label_content = reader.timeline_content
                     reader.latest_page = reader.latest_page + 1
-            if reader.current_page == reader.total_pages:
-                print('last page in chapter')
-                #reader.current_page = reader.current_page + 1
+                    #reader.label_content_index == len(reader.timeline_array)-1
+
+                #if letter loading finished
+                if reader.label_content_index > len(reader.timeline_array)-1:
+                    if reader.current_page < reader.total_pages:
+                        print('turn page')
+                        reader.label_content_index = 0
+                        reader.label_content = "";
+                        reader.current_page = reader.current_page + 1
+                        if reader.current_page > reader.latest_page:
+                            reader.latest_page = reader.latest_page + 1
+                    if reader.current_page == reader.total_pages:
+                        print('last page in chapter')
+                        #reader.current_page = reader.current_page + 1
+                        time.sleep(0.1)
+                        #reader.current_page = reader.total_pages + 2
+                        reader.current_chapter = reader.current_chapter + 1
+                        reader.latest_page = 0
+                        reader.current_page = 0
+                #reader.current_chapter = reader.current_chapter + 1
+                reader.timeline_read(reader.current_page)
+
+                #timeline_read is method for displaying line; takes page num
                 time.sleep(0.1)
-                #reader.current_page = reader.total_pages + 2
-                reader.current_chapter = reader.current_chapter + 1
-                reader.latest_page = 0
-                reader.current_page = 0
+
             #play audio on click, might move feels delayed
             '''
             if len(reader.audio_que) > 0:
                 audioPlayer = AudioPlayer()
                 audioPlayer.play(reader.audio_que)
             '''
-            #reader.current_chapter = reader.current_chapter + 1
-            reader.timeline_read(reader.current_page)
-            #timeline_read is method for displaying line; takes page num
-            time.sleep(0.1)
+
+
+
             #reader.label_content = "";
             #print(reader.latest_page)
             #print(reader.total_pages)
@@ -139,6 +165,8 @@ class Reader():
         self.animation_que = {}
         self.animation_counter = 0
         self.image_array = []
+        self.timeline_array = []
+        #self.page_location = 720
         print('Reader created')
     def timeline_read(self,timeline_id):
         self.current_page = timeline_id
@@ -165,13 +193,26 @@ class Reader():
 
         f.close()
     def label_draw(self):
-        label = pyglet.text.Label(self.label_content,
-                font_name='Times New Roman',
-                font_size=12,
-                x=window.width//2,y=window.height//2,
-                anchor_x = 'center', anchor_y='center')
-        label.draw()
+        document_content = "{.margin_left '150px'}{font_name 'Chrono Cross'}{font_size 28}"+self.label_content+'{color (0, 0, 0, 255)}'
+        document = pyglet.text.decode_attributed(document_content)
+        #document.font_name = 'Chrono Cross'
+        #document.font_size = 24
+        document.anchor_x = 'center'
+        document.anchor_y = 'center'
+        # label = pyglet.text.HTMLLabel('<font face="Chrono Cross" size="24" color=(0, 0, 0, 255)>'+self.label_content+'</font>',
+        #         #font_name='Chrono Cross',
+        #         #font_size=24,
+        #         x=window.width//2,y=window.height//2,
+        #         anchor_x = 'center',
+        #         anchor_y='center',
+        #         #color=(0, 0, 0, 255)
+        #         )
+        width = window.width//1.35
+        height = window.height//2
+        layout = pyglet.text.layout.TextLayout(document, width ,height, wrap_lines=True, multiline=True)
 
+        #label.draw()
+        layout.draw()
         #letter loading: label draws character array built from timeline content by method when LATEST
         print(self.timeline_content)
         #print('label drew')
@@ -184,20 +225,35 @@ class Reader():
             self.label_content = self.timeline_content
         if self.current_page == self.latest_page:
             print('LATEST')
-            timeline_array = list(self.timeline_content);
-            if self.label_content_index > len(timeline_array)-1:
+            self.timeline_array = list(self.timeline_content);
+            if self.label_content_index > len(self.timeline_array)-1:
+                print('letter loading finished')
                 self.label_content = self.timeline_content
                 #turn page animation trigger
 
                 return
             else:
-                self.label_content = self.label_content + timeline_array[self.label_content_index]
+                print('CURRENT CHARACTER')
+                print(self.timeline_array[self.label_content_index])
+                #line break for / character or check array length
+                # if self.timeline_array[self.label_content_index] == '/':
+                #     self.label_content = self.label_content + '\\'
+                #     #self.page_location= self.page_location - 10
+                #     self.label_content_index = self.label_content_index + 1
+
+
+                #add current_character to current label content
+                current_character = self.timeline_array[self.label_content_index]
+                self.label_content = self.label_content + current_character
+                print(self.label_content)
                 self.label_content_index = self.label_content_index + 1
+
                 #print('letter load test')
                 #print('label content=', self.label_content)
                 #print('label content index = ', self.label_content_index)
                 #print('timeline array= ', timeline_array)
                 #print(timeline_array[self.label_content_index-1])
+
                # if self.label_content_index >= len(timeline_array)-1:
 
 
@@ -215,9 +271,9 @@ class Reader():
         print(len(frames))
         #image_array = self.image_array
         count = self.animation_counter
-        if count < len(frames):
+        if count < len(frames) and len(frames) > 0:
             print(count)
-            current_pic = pyglet.image.load(frames[count])
+            current_pic = pyglet.image.load(frames[count-1])
             #print(f"{current_pic} = CURRENT PIC")
             #pic = image.load(current_pic)
             pic = current_pic
@@ -300,10 +356,19 @@ class Reader():
     def autoplayer():
         pass
     def menu_draw(self):
+
         menu_label = pyglet.text.Label('Press SPACE to begin',
-                      font_name='Times New Roman',
+                      font_name='Chrono Cross',
                       font_size=36,
-                      x=10, y=10)
+                      x=10, y=10,
+                      color=(0, 255, 0, 255))
+        #chrono_cross = menu_label.get_style("Chrono Cross")
+        # menu_label.set_style(0,
+        #
+        # {
+        #     "color": (255, 255, 255,1)
+        # })
+        #menu_label.set_style("Chrono Cross",color=(255,255,255,1))
         menu_label.draw()
 
 
@@ -332,6 +397,7 @@ class AnimPlayer():
 if __name__ == '__main__':
     clock = pyglet.clock
     window = Window(style=pyglet.window.Window.WINDOW_STYLE_BORDERLESS)
+    window.set_size(1280, 720)
     print('main test')
     mousebuttons = mouse.MouseStateHandler()
     keys = key.KeyStateHandler()
@@ -358,6 +424,14 @@ if __name__ == '__main__':
     #start_menu = classes.Start_menu()
 
     pyglet.sprite.Sprite(img=pyglet.image.load('picture.png')).draw()
+
+    pyglet.font.add_file('Chrono Cross.ttf')
+    pyglet.font.load('Chrono Cross')
+    # Get the font name used at character index 0
+    #font_name = document.get_style('Chrono Cross', 0)
+
+    # Set the font name and size for the first 5 characters
+    #document.set_style(0, 5, dict(font_name='Chrono Cross', font_size=12))
 
     def callback(dt):
         print(f"{dt} seconds since last callback")
@@ -490,7 +564,7 @@ if __name__ == '__main__':
 
 
 
-    clock.schedule_interval(tick, 0.017)
+    clock.schedule_interval(tick, 0.04)
     window.push_handlers(mousebuttons)
     window.push_handlers(keys)
     #glClearColor(0.5,1,0.7,1)
