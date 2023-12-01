@@ -50,7 +50,7 @@ class Window(pyglet.window.Window):
     def on_mouse_scroll(self,x,y,scroll_x,scroll_y):
         print(scroll_y)
         if self.game_state == 3:
-            if scroll_y > 0 and reader.current_page > 0:
+            if scroll_y > 0 and reader.current_page > 0 and reader.current_page < reader.total_pages:
                 reader.current_page = reader.current_page - 1
                 reader.timeline_read(reader.current_page)
             if scroll_y < 0 and reader.current_page < reader.latest_page-1:
@@ -79,40 +79,47 @@ class Window(pyglet.window.Window):
                     reader.label_content = ""
                     #turn page with BACKLOG
                     reader.current_page = reader.current_page + 1
+                    time.sleep(0.1)
+                else:
+                    if reader.label_content_index < len(reader.timeline_array)-1:
 
-                if reader.label_content_index < len(reader.timeline_array)-1:
+                        print('currently letterloading, skipping')
+                        #time.sleep(0.1)
+                        #skip letterloading
+                        #reader.label_content_index = 0
+                        reader.label_content = ""
+                        reader.label_content = reader.timeline_content
 
-                    print('currently letterloading')
-                    #time.sleep(0.1)
-                    #skip letterloading
-                    #reader.label_content_index = 0
-                    reader.label_content = ""
-                    reader.label_content = reader.timeline_content
-                    reader.latest_page = reader.latest_page + 1
-                    #reader.label_content_index == len(reader.timeline_array)-1
-
-                #if letter loading finished
-                if reader.label_content_index > len(reader.timeline_array)-1:
-                    if reader.current_page < reader.total_pages:
-                        print('turn page')
-                        reader.label_content_index = 0
-                        reader.label_content = "";
-                        reader.current_page = reader.current_page + 1
-                        if reader.current_page > reader.latest_page:
-                            reader.latest_page = reader.latest_page + 1
-                    if reader.current_page == reader.total_pages:
-                        print('last page in chapter')
-                        #reader.current_page = reader.current_page + 1
+                        reader.latest_page = reader.latest_page + 1
                         time.sleep(0.1)
-                        #reader.current_page = reader.total_pages + 2
-                        reader.current_chapter = reader.current_chapter + 1
-                        reader.latest_page = 0
-                        reader.current_page = 0
-                #reader.current_chapter = reader.current_chapter + 1
-                reader.timeline_read(reader.current_page)
+                        reader.label_content_index == len(reader.timeline_array)-1
 
-                #timeline_read is method for displaying line; takes page num
-                time.sleep(0.1)
+                    #if letter loading finished
+                    if reader.label_content_index > len(reader.timeline_array)-1:
+                        if reader.current_page < reader.total_pages:
+                            print('turn page')
+                            reader.label_content_index = 0
+                            reader.label_content = "";
+                            reader.current_page = reader.current_page + 1
+                            # if reader.current_page > reader.latest_page:
+                            #     reader.latest_page = reader.latest_page + 1
+                            reader.latest_page = reader.latest_page + 1
+                            if reader.latest_page == reader.total_pages:
+                                print('CHAPTER END')
+                        if reader.current_page == reader.total_pages:
+
+                            #reader.current_page = reader.current_page + 1
+                            
+                            #reader.current_page = reader.total_pages + 2
+                            reader.current_chapter = reader.current_chapter + 1
+                            reader.latest_page = 0
+                            reader.current_page = 0
+                            print('new chapter started')
+                    #reader.current_chapter = reader.current_chapter + 1
+                    reader.timeline_read(reader.current_page)
+
+                    #timeline_read is method for displaying line; takes page num
+                    time.sleep(0.1)
 
             #play audio on click, might move feels delayed
             '''
@@ -175,10 +182,10 @@ class Reader():
         page_num = str(self.current_page)
         f = open('timeline.json')
         data = json.load(f)
-        print(timeline_id)
-        print(data)
-        print(data[0])
-        print(data[chapter_num]['page%s'%page_num])
+        #print(timeline_id)
+        #print(data)
+        #print(data[0])
+        #print(data[chapter_num]['page%s'%page_num])
         #print(data[chapter_num][page_num])
         self.total_pages = len(data[chapter_num])-1
         #for i in data['content']:
@@ -187,8 +194,8 @@ class Reader():
         self.timeline_content = data[chapter_num]['page%s'%page_num][0]
         self.audio_que = data[chapter_num]['page%s'%page_num][1]
         self.animation_que = data[chapter_num]['page%s'%page_num][2]
-        print(self.animation_que)
-        print(type(self.animation_que))
+        #print(self.animation_que)
+        #print(type(self.animation_que))
         #below is logic to play sound with audio player whenever JSON includes data after the line data. logic for determining playback functions and sound selection in AudioPlayer
 
         f.close()
@@ -197,8 +204,8 @@ class Reader():
         document = pyglet.text.decode_attributed(document_content)
         #document.font_name = 'Chrono Cross'
         #document.font_size = 24
-        document.anchor_x = 'center'
-        document.anchor_y = 'center'
+        #document.anchor_x = 'center'
+        #document.anchor_y = 'center'
         # label = pyglet.text.HTMLLabel('<font face="Chrono Cross" size="24" color=(0, 0, 0, 255)>'+self.label_content+'</font>',
         #         #font_name='Chrono Cross',
         #         #font_size=24,
@@ -219,6 +226,7 @@ class Reader():
         #print('timeline_id')
     def letter_load(self):
         print(self.current_page)
+        print('Label content index:' + str(self.label_content_index))
         if self.current_page < self.latest_page:
             print('BACKLOG')
             self.label_content_index = 0
@@ -278,6 +286,7 @@ class Reader():
             #pic = image.load(current_pic)
             pic = current_pic
             pic.blit(0,0)
+
 
         '''
         frames = self.animation_que
@@ -433,10 +442,10 @@ if __name__ == '__main__':
     # Set the font name and size for the first 5 characters
     #document.set_style(0, 5, dict(font_name='Chrono Cross', font_size=12))
 
-    def callback(dt):
-        print(f"{dt} seconds since last callback")
-    def drawFrames(dt):
-        print("frame drawn")
+    # def callback(dt):
+    #     print(f"{dt} seconds since last callback")
+    # def drawFrames(dt):
+    #     print("frame drawn")
     def tick(dt):
         print('tick')
         print(f"{dt} seconds since last callback")
@@ -501,11 +510,12 @@ if __name__ == '__main__':
 
             print('LIVE STATS')
             print(count)
-            print(frames_length)
+            print('Frame length:{}' .format(frames_length))
             print(image_array)
             print(len(image_array))
 
             if frames_length > 0:
+                print('images present')
 
                 if len(image_array) <= frames_length:
                     #increment frame counter
@@ -529,7 +539,7 @@ if __name__ == '__main__':
                         #reader.img_draw()
 
 
-                    if count == frames_length:
+                    if count == frames_length or count > frames_length:
                         count = 0
                         reader.animation_counter = count
                         print('loop reset')
