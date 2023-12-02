@@ -46,6 +46,12 @@ class Window(pyglet.window.Window):
             print('C Key Pressed')
         if KEY == 65307:
             pyglet.app.exit()
+        if KEY == 65470:
+            if self.game_state ==3:
+                memory.save()
+        if KEY == 65471:
+
+            memory.load()
 
     def on_mouse_scroll(self,x,y,scroll_x,scroll_y):
         print(scroll_y)
@@ -109,7 +115,7 @@ class Window(pyglet.window.Window):
                         if reader.current_page == reader.total_pages:
 
                             #reader.current_page = reader.current_page + 1
-                            
+
                             #reader.current_page = reader.total_pages + 2
                             reader.current_chapter = reader.current_chapter + 1
                             reader.latest_page = 0
@@ -366,7 +372,7 @@ class Reader():
         pass
     def menu_draw(self):
 
-        menu_label = pyglet.text.Label('Press SPACE to begin',
+        menu_label = pyglet.text.Label('Press SPACE to begin, F2 to LOAD chapter',
                       font_name='Chrono Cross',
                       font_size=36,
                       x=10, y=10,
@@ -379,6 +385,28 @@ class Reader():
         # })
         #menu_label.set_style("Chrono Cross",color=(255,255,255,1))
         menu_label.draw()
+
+class Memory():
+    def __init__(self):
+        self.dictionary = {
+            "name":"autosave",
+            "chapter":"",
+            "completion":"",
+            "date_saved":""
+        }
+    def save(self):
+        self.dictionary['chapter'] = reader.current_chapter
+        with open('save_data.json', 'w') as outfile:
+            json.dump(self.dictionary, outfile)
+        print(self.dictionary)
+    def load(self):
+        with open('save_data.json', 'r') as openfile:
+            json_object = json.load(openfile)
+        print(json_object)
+        self.dictionary['chapter'] = json_object['chapter']
+        reader.current_chapter = self.dictionary['chapter']
+        print(self.dictionary)
+
 
 
 class AudioPlayer():
@@ -428,6 +456,7 @@ if __name__ == '__main__':
     #load menu buttons
     #reader = classes.Reader()
     reader = Reader()
+    memory = Memory()
     print('reader test')
     #page = classes.Page()
     #start_menu = classes.Start_menu()
@@ -475,13 +504,19 @@ if __name__ == '__main__':
         if window.game_state == 3:
             current_timeline = reader.timeline_read(reader.current_page)
             print(current_timeline)
+            music_que = reader.audio_que[0]
             music = pyglet.media.load(reader.audio_que[1])
-            if music_player.playing == True:
-                pass
-            if music_player.playing != True:
-                music_player.queue(music)
-                music_player.next_source()
-                music_player.play()
+            if reader.current_page == reader.latest_page:
+                if music_player.playing == True:
+                    if reader.audio_que[0] == 'STOP':
+                        music_player.pause()
+                else:
+                    if music_player.playing != True:
+                        if reader.audio_que[0] == 'PLAY':
+                            music_player.queue(music)
+                            music_player.next_source()
+                            music_player.play()
+
             #reader.letter_load()
             #reader.label_draw()
             '''
