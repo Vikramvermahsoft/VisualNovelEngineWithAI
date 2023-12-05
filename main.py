@@ -50,7 +50,6 @@ class Window(pyglet.window.Window):
             if self.game_state ==3:
                 memory.save()
         if KEY == 65471:
-
             memory.load()
 
     def on_mouse_scroll(self,x,y,scroll_x,scroll_y):
@@ -63,22 +62,10 @@ class Window(pyglet.window.Window):
                 reader.current_page = reader.current_page + 1
                 reader.timeline_read(reader.current_page)
 
-
-    def on_draw(self):
-        self.clear()
-        #pyglet.graphics.Batch().draw()
-        #print(self.game_state)
-        #mouse click logic; detecting mouse on every draw frame
-        if self.game_state == 1:
-            reader.menu_draw()
-        if self.game_state == 3:
-            reader.img_draw()
-            reader.letter_load()
-            reader.label_draw()
-
-
-        if mousebuttons[mouse.LEFT] is True:
-            print('left click mouse')
+    def on_mouse_release(self,x,y,button, modifiers):
+        print(button)
+        if button == 1:
+            #print('left click mouse')
 
             if self.game_state == 3:
                 if reader.current_page < reader.latest_page:
@@ -124,21 +111,22 @@ class Window(pyglet.window.Window):
                     #reader.current_chapter = reader.current_chapter + 1
                     reader.timeline_read(reader.current_page)
 
-                    #timeline_read is method for displaying line; takes page num
-                    time.sleep(0.1)
 
-            #play audio on click, might move feels delayed
-            '''
-            if len(reader.audio_que) > 0:
-                audioPlayer = AudioPlayer()
-                audioPlayer.play(reader.audio_que)
-            '''
+    def on_draw(self):
+        self.clear()
+        #pyglet.graphics.Batch().draw()
+        #print(self.game_state)
+        #mouse click logic; detecting mouse on every draw frame
+        if self.game_state == 1:
+            reader.menu_draw()
+        if self.game_state == 3:
+            reader.img_draw()
+            reader.letter_load()
+            reader.label_draw()
 
+        if mousebuttons[mouse.LEFT] is True:
+            print('left click mouse')
 
-
-            #reader.label_content = "";
-            #print(reader.latest_page)
-            #print(reader.total_pages)
         if mousebuttons[mouse.RIGHT] is True:
             print('right click mouse')
 
@@ -407,7 +395,12 @@ class Memory():
         reader.current_chapter = self.dictionary['chapter']
         print(self.dictionary)
 
-
+class Completion():
+    def __init__(self):
+        self.current_route = Memory().dictionary['completion']
+    def route_finish(self):
+        self.current_route = self.current_route + 1
+        Memory().dictionary['completion'] = self.current_route
 
 class AudioPlayer():
     # def __init__(self):
