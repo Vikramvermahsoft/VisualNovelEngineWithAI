@@ -99,6 +99,7 @@ class Window(pyglet.window.Window):
                             reader.latest_page = reader.latest_page + 1
                             if reader.latest_page == reader.total_pages:
                                 print('CHAPTER END')
+
                         if reader.current_page == reader.total_pages:
 
                             #reader.current_page = reader.current_page + 1
@@ -185,9 +186,16 @@ class Reader():
         #for i in data['content']:
         #    print(timeline_id)
         #    print(i)
-        self.timeline_content = data[chapter_num]['page%s'%page_num][0]
-        self.audio_que = data[chapter_num]['page%s'%page_num][1]
-        self.animation_que = data[chapter_num]['page%s'%page_num][2]
+        timeline_content = data[chapter_num]['page%s'%page_num][0]
+        audio_que = data[chapter_num]['page%s'%page_num][1]
+        animation_que = data[chapter_num]['page%s'%page_num][2]
+
+        if timeline_content is not None:
+            self.timeline_content = timeline_content
+        if audio_que is not None:
+            self.audio_que = audio_que
+        if animation_que is not None:
+            self.animation_que = animation_que
         #print(self.animation_que)
         #print(type(self.animation_que))
         #below is logic to play sound with audio player whenever JSON includes data after the line data. logic for determining playback functions and sound selection in AudioPlayer
@@ -471,9 +479,7 @@ if __name__ == '__main__':
     def tick(dt):
         print('tick')
         print(f"{dt} seconds since last callback")
-        sprite = pyglet.sprite.Sprite(
-            img = pyglet.image.load('picture.png')
-        )
+
         if window.game_state == 0:
             #bootup
             window.game_state = 1
@@ -497,18 +503,23 @@ if __name__ == '__main__':
         if window.game_state == 3:
             current_timeline = reader.timeline_read(reader.current_page)
             print(current_timeline)
-            music_que = reader.audio_que[0]
-            music = pyglet.media.load(reader.audio_que[1])
-            if reader.current_page == reader.latest_page:
-                if music_player.playing == True:
-                    if reader.audio_que[0] == 'STOP':
-                        music_player.pause()
+            if reader.audio_que is not None:
+
+                music_que = reader.audio_que[0]
+                if not reader.audio_que[0]:
+                    pass
                 else:
-                    if music_player.playing != True:
-                        if reader.audio_que[0] == 'PLAY':
-                            music_player.queue(music)
-                            music_player.next_source()
-                            music_player.play()
+                    music = pyglet.media.load(reader.audio_que[1])
+                    if reader.current_page == reader.latest_page:
+                        if music_player.playing == True:
+                            if reader.audio_que[0] == 'STOP':
+                                music_player.pause()
+                        else:
+                            if music_player.playing != True:
+                                if reader.audio_que[0] == 'PLAY':
+                                    music_player.queue(music)
+                                    music_player.next_source()
+                                    music_player.play()
 
             #reader.letter_load()
             #reader.label_draw()
