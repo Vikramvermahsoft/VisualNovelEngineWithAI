@@ -1,6 +1,7 @@
 [
         {
-		"page0":["This is the first line of the story",
+		"page0":[
+      ["Speaker","This is the first line of the story"],
 			["PLAY","theme1.wav"],
 			[
 			  "pracposes00011.png",
@@ -9,10 +10,15 @@
         "pracposes00024.png",
         "pracposes00028.png",
         "pracposes00036.png"
-			]
+			],
+      [
+        "picture.png",
+        "left"
+      ]
 		]
 		,
-    "page1":["This second line of the story is a test that needs to be much longer than the first",
+    "page1":[
+      ["Speaker","This second line of the story is a \n test that needs to be much longer than the first"],
 			["PLAY","theme1.wav"],
       [
 			  "pracposes00011.png",
@@ -21,44 +27,63 @@
         "pracposes00024.png",
         "pracposes00028.png",
         "pracposes00036.png"
-			]
+			],
+      [
+        "picture.png",
+        "right"
+      ]
 		]
 		,
-    "page2":["...",
+    "page2":[
+        ["Speaker","..."],
         ["STOP","theme0.wav"],
         ["pracposes00011.png",
         "pracposes00012.png"
+      ],
+      [
+
       ]
 
     ]
 		,
-		"page3":["chapter end",
+		"page3":[
+      ["","chapter end"],
+      [],
       [],
       []
   ]
 	}
 ,
 	{
-		"page0":["Here is chapter 2 test",["",""],
-    [
-      "pracposes00011.png"
-    ]
+		"page0":[
+      ["","Here is chapter 2 test"],
+      ["",""],
+      [
+        "pracposes00011.png"
+      ],
+      []
   ]
 		,
-		"page1":["Here is chapter 2 page 1 :O",["",""],
-    [
-      "pracposes00011.png",
-      "pracposes00012.png",
-      "pracposes00020.png",
-      "pracposes00024.png",
-      "pracposes00028.png",
-      "pracposes00036.png"
-    ]]
+		"page1":[
+      ["","Here is chapter 2 page 1 :O"],
+      ["",""],
+      [
+        "pracposes00011.png",
+        "pracposes00012.png",
+        "pracposes00020.png",
+        "pracposes00024.png",
+        "pracposes00028.png",
+        "pracposes00036.png"
+      ],
+      []
+  ]
 		,
-		"page2":["chapter end",
+		"page2":[
+    ["","chapter end"],
     ["",""],
     ["pracposes00011.png",
-    "pracposes00012.png"]
+    "pracposes00012.png"],
+    []
   ]
 	}
 ]
