@@ -7,6 +7,7 @@ from pyglet.window import mouse
 from pyglet.window import key
 #import classes
 import time
+from datetime import datetime
 import json
 from pyglet import image
 from pyglet.graphics import Batch
@@ -45,11 +46,14 @@ class Window(pyglet.window.Window):
         if KEY == key.C:
             print('C Key Pressed')
         if KEY == 65307:
+            #ESCAPE key pressed
             pyglet.app.exit()
         if KEY == 65470:
+            #F1 pressed
             if self.game_state ==3:
                 memory.save()
         if KEY == 65471:
+            #F2 pressed
             memory.load()
 
     def on_mouse_scroll(self,x,y,scroll_x,scroll_y):
@@ -58,7 +62,7 @@ class Window(pyglet.window.Window):
             if scroll_y > 0 and reader.current_page > 0 and reader.current_page < reader.total_pages:
                 reader.current_page = reader.current_page - 1
                 reader.timeline_read(reader.current_page)
-            if scroll_y < 0 and reader.current_page < reader.latest_page-1:
+            if scroll_y < 0 and reader.current_page < reader.latest_page-1 and reader.current_page < reader.total_pages:
                 reader.current_page = reader.current_page + 1
                 reader.timeline_read(reader.current_page)
 
@@ -68,12 +72,13 @@ class Window(pyglet.window.Window):
             #print('left click mouse')
 
             if self.game_state == 3:
+            #if game in play mode
                 #if Backlog
                 if reader.current_page < reader.latest_page:
                     reader.label_content = ""
                     #turn page with BACKLOG
                     reader.current_page = reader.current_page + 1
-
+                    #reader.timeline_read(reader.current_page)
                 #if Current
                 else:
 
@@ -100,6 +105,7 @@ class Window(pyglet.window.Window):
                             reader.current_page = reader.current_page + 1
                             # if reader.current_page > reader.latest_page:
                             #     reader.latest_page = reader.latest_page + 1
+
                             reader.latest_page = reader.latest_page + 1
                             if reader.latest_page == reader.total_pages:
                                 print('CHAPTER END')
@@ -144,6 +150,15 @@ class Window(pyglet.window.Window):
                     if reader.current_page == 0:
                         reader.save_label_draw()
             reader.speaker_label_draw()
+            if reader.current_page == reader.total_pages:
+
+                #reader.current_page = reader.current_page + 1
+
+                #reader.current_page = reader.total_pages + 2
+                reader.current_chapter = reader.current_chapter + 1
+                reader.latest_page = 0
+                reader.current_page = 0
+                print('new chapter started')
 
 
 
@@ -221,15 +236,25 @@ class Reader():
             animation_que = data[chapter_num]['page%s'%page_num][2]
             character_que = data[chapter_num]['page%s'%page_num][3]
 
-            if timeline_que is not None:
+            #if timeline_que != None:
+            if len(timeline_que)>0:
+                #if timeline_que[1]:
                 self.timeline_content = timeline_que[1]
+                #if timeline_que[0]:
                 self.speaker_content = timeline_que[0]
-            if audio_que is not None:
+            else:
+                self.timeline_content = ""
+                self.speaker_content = ""
+            if len(audio_que)>0:
                 self.audio_que = audio_que
-            if animation_que is not None:
+            else:
+                self.audio_que = ["",""]
+            if len(animation_que)>0:
                 self.animation_que = animation_que
-            if character_que is not None:
+            if len(character_que)>0:
                 self.character_que = character_que
+            else:
+                self.character_que = []
 
         #print(self.animation_que)
         #print(type(self.animation_que))
@@ -241,6 +266,8 @@ class Reader():
         print("LATEST PAGE:%s"%self.latest_page)
 
         document_content = "{.margin_left '150px'}{font_name 'Chrono Cross'}{font_size 28}"+self.label_content+"{color (0, 0, 0, 255)}"
+
+        # document_content3 = "{.margin_left '150px'}{font_name 'Chrono Cross'}{font_size 28}"+self.label_content+"{color (0, 0, 0, 0)}"
 
         document = pyglet.text.decode_attributed(document_content)
         #document.font_name = 'Chrono Cross'
@@ -365,7 +392,7 @@ class Reader():
             #have a naming convention for file names
             #have character name[0] pull a seperate json of filenames based on emotion[1]
         #for the beta let us stick with the first option while including the design for the second
-        if len(self.character_que) is not 0:
+        if len(self.character_que) != 0:
             character_frames = self.character_que[0]
             character_side = self.character_que[1]
             test_pic = pyglet.image.load(character_frames)
@@ -472,7 +499,7 @@ class Reader():
 
 class Memory():
     def __init__(self):
-        #there needs to be an if else that looks for exisitng save file upon start up, perhaps new method
+        #there needs to be an if else that looks for exisitng save file upon start up, perhaps new method. this method will trigger at game_state
         self.dictionary = {
             "name":"autosave",
             "chapter":"",
@@ -481,6 +508,8 @@ class Memory():
         }
     def save(self):
         self.dictionary['chapter'] = reader.current_chapter
+        print(datetime.now())
+        self.dictionary['date_saved'] = str(datetime.now())
         with open('save_data.json', 'w') as outfile:
             json.dump(self.dictionary, outfile)
         #print(self.dictionary)
@@ -490,6 +519,7 @@ class Memory():
         #print(json_object)
         self.dictionary['chapter'] = json_object['chapter']
         reader.current_chapter = self.dictionary['chapter']
+        reader.latest_page = 0
         #print(self.dictionary)
 
 class Completion():
@@ -601,9 +631,9 @@ if __name__ == '__main__':
         if window.game_state == 3:
             current_timeline = reader.timeline_read(reader.current_page)
             print(current_timeline)
-            if reader.audio_que is not None:
+            if reader.audio_que != None:
                 music_que = reader.audio_que[0]
-                if not reader.audio_que[0]:
+                if not music_que:
                     pass
                 else:
                     music = pyglet.media.load(reader.audio_que[1])
@@ -628,27 +658,6 @@ if __name__ == '__main__':
             frames_length = len(frames)
             image_array = reader.image_array
             count = reader.animation_counter
-
-            '''
-            if(len(image_array)>0):
-
-            #current_animation = pyglet.image.Animation.from_image_sequence(image_array, duration = 0.1, loop=True)
-                current_animation = pyglet.image.Animation(frames=image_array)
-                sprite = pyglet.sprite.Sprite(
-                    img = current_animation
-                )
-                sprite.scale = .25
-
-            '''
-            #print(sprite)
-            #print(image_array)
-            #print(current_animation)
-
-            print('LIVE STATS')
-            print(count)
-            print('Frame length:{}' .format(frames_length))
-            print(image_array)
-            print(len(image_array))
 
             if frames_length > 0:
                 print('images present')
