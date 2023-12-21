@@ -72,6 +72,7 @@ class Window(pyglet.window.Window):
             #print('left click mouse')
 
             if self.game_state == 3:
+
             #if game in play mode
                 #if Backlog
                 if reader.current_page < reader.latest_page:
@@ -94,7 +95,7 @@ class Window(pyglet.window.Window):
 
                         reader.latest_page = reader.latest_page + 1
 
-                        reader.label_content_index == len(reader.timeline_array)-1
+                        reader.label_content_index == len(reader.timeline_array)
 
                     #if letter loading finished
                     if reader.label_content_index > len(reader.timeline_array)-1:
@@ -110,21 +111,21 @@ class Window(pyglet.window.Window):
                             if reader.latest_page == reader.total_pages:
                                 print('CHAPTER END')
 
-                        if reader.current_page == reader.total_pages:
-
-                            #reader.current_page = reader.current_page + 1
-
-                            #reader.current_page = reader.total_pages + 2
-                            reader.current_chapter = reader.current_chapter + 1
-                            reader.latest_page = 0
-                            reader.current_page = 0
-                            print('new chapter started')
+                        # if reader.current_page == reader.total_pages:
+                        #
+                        #     #reader.current_page = reader.current_page + 1
+                        #
+                        #     #reader.current_page = reader.total_pages + 2
+                        #     reader.current_chapter = reader.current_chapter + 1
+                        #     reader.latest_page = 0
+                        #     reader.current_page = 0
+                        #     print('new chapter started')
 
                     #reader.current_chapter = reader.current_chapter + 1
                     if reader.current_chapter == reader.total_chapters:
                         completion.route_finish()
                         pyglet.app.exit()
-                    reader.timeline_read(reader.current_page)
+                reader.timeline_read(reader.current_page)
 
     def on_draw(self):
         self.clear()
@@ -145,20 +146,27 @@ class Window(pyglet.window.Window):
             if reader.current_page < reader.latest_page:
                 pass
             else:
+                if reader.current_page == reader.total_pages:
+
+                    #reader.current_page = reader.current_page + 1
+
+                    #reader.current_page = reader.total_pages + 2
+                    reader.current_chapter = reader.current_chapter + 1
+                    if reader.current_chapter == reader.total_chapters:
+                        completion.route_finish()
+                        pyglet.app.exit()
+
+                    reader.latest_page = 0
+                    reader.current_page = 0
+                    print('new chapter started')
                 #new chapter
                 if reader.label_content_index > len(reader.timeline_array)-1:
+                    print("Letter loading finished")
                     if reader.current_page == 0:
+                    #if new chapter
                         reader.save_label_draw()
             reader.speaker_label_draw()
-            if reader.current_page == reader.total_pages:
 
-                #reader.current_page = reader.current_page + 1
-
-                #reader.current_page = reader.total_pages + 2
-                reader.current_chapter = reader.current_chapter + 1
-                reader.latest_page = 0
-                reader.current_page = 0
-                print('new chapter started')
 
 
 
@@ -327,9 +335,10 @@ class Reader():
             print('BACKLOG')
             self.label_content_index = 0
             self.label_content = self.timeline_content
-        if self.current_page == self.latest_page:
+        if self.current_page == self.latest_page and self.latest_page != self.total_pages:
             print('LATEST')
             self.timeline_array = list(self.timeline_content);
+            print(self.timeline_array)
             if self.label_content_index > len(self.timeline_array)-1:
                 print('letter loading finished')
                 self.label_content = self.timeline_content
@@ -349,7 +358,7 @@ class Reader():
                 #add current_character to current label content
                 current_character = self.timeline_array[self.label_content_index]
                 self.label_content = self.label_content + current_character
-                #print(self.label_content)
+                print(self.label_content)
                 self.label_content_index = self.label_content_index + 1
 
                 #print('letter load test')
