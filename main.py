@@ -93,9 +93,12 @@ class Window(pyglet.window.Window):
                         reader.label_content = ""
                         reader.label_content = reader.timeline_content
 
-                        reader.latest_page = reader.latest_page + 1
+                        #reader.latest_page = reader.latest_page + 1
 
                         reader.label_content_index == len(reader.timeline_array)
+                    #being Latest, if letterloading will load all the text without doing anything else,  increase
+                    reader.latest_page = reader.latest_page + 1
+
 
                     #if letter loading finished
                     if reader.label_content_index > len(reader.timeline_array)-1:
@@ -107,7 +110,7 @@ class Window(pyglet.window.Window):
                             # if reader.current_page > reader.latest_page:
                             #     reader.latest_page = reader.latest_page + 1
 
-                            reader.latest_page = reader.latest_page + 1
+                            #reader.latest_page = reader.latest_page + 1
                             if reader.latest_page == reader.total_pages:
                                 print('CHAPTER END')
 
@@ -142,8 +145,11 @@ class Window(pyglet.window.Window):
             reader.img_draw()
             reader.character_draw()
             reader.letter_load()
-            reader.label_draw()
+            print("INVERSION:%d" % reader.inversion)
+            reader.label_draw(reader.inversion)
+
             if reader.current_page < reader.latest_page:
+                #backlog
                 pass
             else:
                 if reader.current_page == reader.total_pages:
@@ -215,6 +221,7 @@ class Reader():
         self.image_array = []
         self.timeline_array = []
         self.character_que = {}
+        self.inversion = 0
         #self.page_location = 720
         print('Reader created')
     def timeline_read(self,timeline_id):
@@ -232,8 +239,9 @@ class Reader():
         # print("DATA LENGTH %s"%len(data))
         # print("CURRENT CHAPTER %s"%self.current_chapter)
         self.total_chapters = len(data)
-        if self.current_chapter == len(data):
-            pass
+        if self.current_chapter == self.total_chapters:
+            completion.route_finish()
+            print("route:%d" % completion.report())
         else:
             self.total_pages = len(data[chapter_num])-1
             #for i in data['content']:
@@ -250,6 +258,8 @@ class Reader():
                 self.timeline_content = timeline_que[1]
                 #if timeline_que[0]:
                 self.speaker_content = timeline_que[0]
+                if len(timeline_que)>2:
+                    self.inversion = timeline_que[2]
             else:
                 self.timeline_content = ""
                 self.speaker_content = ""
@@ -269,13 +279,17 @@ class Reader():
         #below is logic to play sound with audio player whenever JSON includes data after the line data. logic for determining playback functions and sound selection in AudioPlayer
 
         f.close()
-    def label_draw(self):
+    def label_draw(self, inversion):
         print("CURRENT PAGE:%s"%self.current_page)
         print("LATEST PAGE:%s"%self.latest_page)
 
-        document_content = "{.margin_left '150px'}{font_name 'Chrono Cross'}{font_size 28}"+self.label_content+"{color (0, 0, 0, 255)}"
-
-        # document_content3 = "{.margin_left '150px'}{font_name 'Chrono Cross'}{font_size 28}"+self.label_content+"{color (0, 0, 0, 0)}"
+        # document_content = "{.margin_left '150px'}{font_name 'Chrono Cross'}{font_size 28}"+self.label_content+"{color (0, 0, 0, 255)}"
+        if inversion == 1:
+            print("INVERTED")
+            document_content = ""
+            document_content = "{.margin_left '150px'}{font_name 'Chrono Cross'}{font_size 28}{color (255, 255, 255, 255)}"+self.label_content
+        else:
+            document_content = "{.margin_left '150px'}{font_name 'Chrono Cross'}{font_size 28}"+self.label_content
 
         document = pyglet.text.decode_attributed(document_content)
         #document.font_name = 'Chrono Cross'
@@ -302,7 +316,7 @@ class Reader():
         #print('label drew')
         #print('timeline_id')
     def save_label_draw(self):
-        document_content1 = "{.margin_left '10px'}{font_name 'Chrono Cross'}{font_size 20}New Chapter: Press F1 to SAVE game{color (0, 0, 255, 255)}"
+        document_content1 = "{.margin_left '10px'}{font_name 'Chrono Cross'}{font_size 20}New Chapter: Press F1 to SAVE game"
 
         document1 = pyglet.text.decode_attributed(document_content1)
 
@@ -316,7 +330,7 @@ class Reader():
         if len(self.speaker_content) == 0:
             pass
         else:
-            document_content2 = "{.margin_left '10px'}{font_name 'Chrono Cross'}{font_size 20}{bold True}"+self.speaker_content+":{color (0, 0, 255, 255)}"
+            document_content2 = "{.margin_left '10px'}{font_name 'Chrono Cross'}{font_size 20}{bold True}"+self.speaker_content+":"
 
 
             document2 = pyglet.text.decode_attributed(document_content2)
