@@ -1,8 +1,8 @@
 [
         {
 		"page0":[
-      ["","My hands held in hers and my eyes shut, I sway gently", 1],
-			["PLAY","theme1.wav"],
+      ["","{bold True}My hands held in hers \n and my eyes shut, I sway gently", 1],
+			["PLAY","theme1.wav", ""],
 			[
 			],
       [
@@ -10,8 +10,8 @@
 		]
 		,
     "page1":[
-      ["","\"Now relax - your feet up to your knees, lower back, then up to your chest\""],
-			[],
+      ["","\"Now relax - your feet up to your knees, lower back, then up to your chest\"",1],
+			["PLAY","","audio1.mp3"],
       [
         "black.png"
 			],
@@ -20,20 +20,24 @@
 		]
 		,
     "page2":[
-        ["","",0],
+        ["","I'm walking along a barn.",0],
         [],
-        ["storyboardFrames000000.png"
-      ],
-      [
+        [
+  "warehouse0001.png",
+  "warehouse0002.png"
 
+],
+      [
+        "picture0.png","right"
       ]
 
     ]
     ,
     "page3":[
-        ["","",0],
+        ["",""],
         [],
-        ["storyboardFrames000100.png"
+        [
+          "storyboardFrames000100.png"
       ],
       [
 
@@ -42,9 +46,10 @@
     ]
     ,
     "page4":[
-        ["","",0],
+        ["",""],
         [],
-        ["storyboardFrames000200.png"
+        [
+          "storyboardFrames000200.png"
       ],
       [
 
@@ -55,7 +60,8 @@
     "page5":[
         ["","This is the end of chapter 1"],
         ["STOP","theme0.wav"],
-        ["pracposes00011.png",
+        [
+        "pracposes00011.png",
         "pracposes00012.png"
       ],
       [
@@ -65,22 +71,22 @@
     ]
 		,
 		"page6":[
-      ["",""],
+      ["","should not show",1],
       [],
-      [],
+      ["black.png"],
       []
   ]
 	}
 ,
 	{
 		"page0":[
-      ["",""],
+      ["","Test lettering",0],
       ["",""],
       [
         "storyboardFrames000300.png"
       ],
       [
-        "picture.png","left"
+        "character1_looking.png","left"
       ]
   ]
 		,
@@ -91,7 +97,7 @@
         "storyboardFrames000400.png"
       ],
       [
-        "picture.png","right"
+        "character1_looking.png","right"
       ]
   ]
 		,
@@ -104,8 +110,18 @@
       []
   ]
     ,
-		"page3":[
-    ["",""],
+
+    "page3":[
+      ["","Even more inverted text"],
+      ["",""],
+      [
+        "black.png"
+      ],
+      []
+  ]
+  ,
+		"page4":[
+    ["","", 0],
     [],
     [],
     []

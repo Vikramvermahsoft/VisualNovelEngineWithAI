@@ -1,4 +1,3 @@
-
 import pyglet
 import sys
 import os
@@ -11,6 +10,8 @@ from datetime import datetime
 import json
 from pyglet import image
 from pyglet.graphics import Batch
+from pyglet.gl import *
+
 
 class Window(pyglet.window.Window):
     def __init__(self,*args,**kwargs):
@@ -18,26 +19,26 @@ class Window(pyglet.window.Window):
         print('Window created')
         self.game_state = 0
         print('window test')
-
-    def game_state_handler(state_variable):
-        if state_variable == 0:
-            self.game_state = 0
-            #reset
-        if state_variable == 1:
-            self.game_state = 1
-            #menu starts
-            #save reader state/save data
-            #close reader and other
-        if state_variable == 2:
-            self.game_state = 2
-            #play
-
-            #open reader
-
-        #game state 0 = startup
-        #game state 1 = home menu
-        #game state 2 = play
-        pass
+    #
+    # def game_state_handler(self, state_variable):
+    #     if state_variable == 0:
+    #         self.game_state = 0
+    #         #reset
+    #     if state_variable == 1:
+    #         self.game_state = 1
+    #         #menu starts
+    #         #save reader state/save data
+    #         #close reader and other
+    #     if state_variable == 2:
+    #         self.game_state = 2
+    #         #play
+    #
+    #         #open reader
+    #
+    #     #game state 0 = startup
+    #     #game state 1 = home menu
+    #     #game state 2 = play
+    #     pass
 
     def on_key_press(self, KEY, MOD):
         print(KEY)
@@ -79,9 +80,15 @@ class Window(pyglet.window.Window):
                     reader.label_content = ""
                     #turn page with BACKLOG
                     reader.current_page = reader.current_page + 1
+
                     #reader.timeline_read(reader.current_page)
                 #if Current
                 else:
+                    reader.latest_page = reader.latest_page + 1
+
+
+                    #new chapter
+
 
                     #if currently letter loading
                     if reader.label_content_index < len(reader.timeline_array)-1:
@@ -97,7 +104,7 @@ class Window(pyglet.window.Window):
 
                         reader.label_content_index == len(reader.timeline_array)
                     #being Latest, if letterloading will load all the text without doing anything else,  increase
-                    reader.latest_page = reader.latest_page + 1
+                    #reader.latest_page = reader.latest_page + 1
 
 
                     #if letter loading finished
@@ -107,35 +114,50 @@ class Window(pyglet.window.Window):
                             reader.label_content_index = 0
                             reader.label_content = "";
                             reader.current_page = reader.current_page + 1
+
                             # if reader.current_page > reader.latest_page:
                             #     reader.latest_page = reader.latest_page + 1
 
                             #reader.latest_page = reader.latest_page + 1
                             if reader.latest_page == reader.total_pages:
                                 print('CHAPTER END')
+                                reader.save_label_draw()
 
-                        # if reader.current_page == reader.total_pages:
+
+                        if reader.current_page == reader.total_pages:
+
                         #
-                        #     #reader.current_page = reader.current_page + 1
+
                         #
                         #     #reader.current_page = reader.total_pages + 2
-                        #     reader.current_chapter = reader.current_chapter + 1
-                        #     reader.latest_page = 0
-                        #     reader.current_page = 0
-                        #     print('new chapter started')
+                             reader.current_chapter = reader.current_chapter + 1
+                             reader.latest_page = 0
+                             reader.current_page = 0
+                             #reader.current_page = -1
+                             print('new chapter started')
 
                     #reader.current_chapter = reader.current_chapter + 1
                     if reader.current_chapter == reader.total_chapters:
                         completion.route_finish()
                         pyglet.app.exit()
+                #reader.current_page = reader.current_page + 1
                 reader.timeline_read(reader.current_page)
+                audioPlayer.play(reader.audio_que)
+
+                print('COMPLETION:%s'%completion.report())
+                print("DATA LENGTH %s"%reader.total_chapters)
+                print("CURRENT PAGE %s"%reader.current_page)
+                print("CURRENT LATEST %s"%reader.latest_page)
+                print("CURRENT CHAPTER %s"%reader.current_chapter)
+                print('TOTAL PAGES:%s'%reader.total_pages)
+
 
     def on_draw(self):
         self.clear()
-        print('COMPLETION:%s'%completion.report())
-        print("DATA LENGTH %s"%reader.total_chapters)
-        print("CURRENT CHAPTER %s"%reader.current_chapter)
-        print('TOTAL PAGES:%s'%reader.total_pages)
+        #print('COMPLETION:%s'%completion.report())
+        #print("DATA LENGTH %s"%reader.total_chapters)
+        #print("CURRENT CHAPTER %s"%reader.current_chapter)
+        #print('TOTAL PAGES:%s'%reader.total_pages)
         #pyglet.graphics.Batch().draw()
         #print(self.game_state)
         #mouse click logic; detecting mouse on every draw frame
@@ -145,7 +167,7 @@ class Window(pyglet.window.Window):
             reader.img_draw()
             reader.character_draw()
             reader.letter_load()
-            print("INVERSION:%d" % reader.inversion)
+            #print("INVERSION:%d" % reader.inversion)
             reader.label_draw(reader.inversion)
 
             if reader.current_page < reader.latest_page:
@@ -167,11 +189,27 @@ class Window(pyglet.window.Window):
                     print('new chapter started')
                 #new chapter
                 if reader.label_content_index > len(reader.timeline_array)-1:
-                    print("Letter loading finished")
+                    #print("Letter loading finished")
                     if reader.current_page == 0:
                     #if new chapter
                         reader.save_label_draw()
             reader.speaker_label_draw()
+            if reader.audio_que[1] != "":
+                music_que = reader.audio_que[0]
+                if not music_que:
+                    pass
+                else:
+                    music = pyglet.resource.media(reader.audio_que[1])
+                    if reader.current_page == reader.latest_page:
+                        if music_player.playing == True:
+                            if reader.audio_que[0] == 'STOP':
+                                music_player.pause()
+                        else:
+                            if music_player.playing != True:
+                                if reader.audio_que[0] == 'PLAY':
+                                    music_player.queue(music)
+                                    music_player.next_source()
+                                    music_player.play()
 
 
 
@@ -181,6 +219,11 @@ class Window(pyglet.window.Window):
 
         if mousebuttons[mouse.RIGHT] is True:
             print('right click mouse')
+    def on_close(self):
+        music_player.pause()
+        music_player.delete()
+        audio_player.pause()
+        audio_player.delete()
 
                 #if mousebuttons[mouse.LEFT] is False and reader.current_page == reader.total_pages:
                 #print('last page in chapter')
@@ -229,8 +272,8 @@ class Reader():
         #chapter_num = 'chapter'+str(self.current_chapter)
         chapter_num = self.current_chapter
         page_num = str(self.current_page)
-        f = open('timeline.json')
-        data = json.load(f)
+        with open('timeline.json') as f:
+            data = json.load(f)
         #print(timeline_id)
         #print(data)
         #print(data[0])
@@ -242,8 +285,13 @@ class Reader():
         if self.current_chapter == self.total_chapters:
             completion.route_finish()
             print("route:%d" % completion.report())
+
+            #route completion
+
         else:
+
             self.total_pages = len(data[chapter_num])-1
+
             #for i in data['content']:
             #    print(timeline_id)
             #    print(i)
@@ -264,9 +312,12 @@ class Reader():
                 self.timeline_content = ""
                 self.speaker_content = ""
             if len(audio_que)>0:
+                if len(audio_que) == 2:
+                    audio_que = audio_que + [""]
+
                 self.audio_que = audio_que
             else:
-                self.audio_que = ["",""]
+                self.audio_que = ["","",""]
             if len(animation_que)>0:
                 self.animation_que = animation_que
             if len(character_que)>0:
@@ -276,16 +327,18 @@ class Reader():
 
         #print(self.animation_que)
         #print(type(self.animation_que))
+        #print(self.audio_que)
         #below is logic to play sound with audio player whenever JSON includes data after the line data. logic for determining playback functions and sound selection in AudioPlayer
+        print('timeline read')
 
         f.close()
     def label_draw(self, inversion):
-        print("CURRENT PAGE:%s"%self.current_page)
-        print("LATEST PAGE:%s"%self.latest_page)
+        #print("CURRENT PAGE:%s"%self.current_page)
+        #print("LATEST PAGE:%s"%self.latest_page)
 
         # document_content = "{.margin_left '150px'}{font_name 'Chrono Cross'}{font_size 28}"+self.label_content+"{color (0, 0, 0, 255)}"
         if inversion == 1:
-            print("INVERTED")
+            #print("INVERTED")
             document_content = ""
             document_content = "{.margin_left '150px'}{font_name 'Chrono Cross'}{font_size 28}{color (255, 255, 255, 255)}"+self.label_content
         else:
@@ -346,21 +399,21 @@ class Reader():
         #print(self.current_page)
         #print('Label content index:' + str(self.label_content_index))
         if self.current_page < self.latest_page:
-            print('BACKLOG')
+            #print('BACKLOG')
             self.label_content_index = 0
             self.label_content = self.timeline_content
         if self.current_page == self.latest_page and self.latest_page != self.total_pages:
-            print('LATEST')
+            #print('LATEST')
             self.timeline_array = list(self.timeline_content);
-            print(self.timeline_array)
+            #print(self.timeline_array)
             if self.label_content_index > len(self.timeline_array)-1:
-                print('letter loading finished')
+                #print('letter loading finished')
                 self.label_content = self.timeline_content
                 #turn page animation trigger
 
                 return
             else:
-                print('CURRENT CHARACTER')
+
                 #print(self.timeline_array[self.label_content_index])
                 #line break for / character or check array length
                 # if self.timeline_array[self.label_content_index] == '/':
@@ -371,8 +424,12 @@ class Reader():
 
                 #add current_character to current label content
                 current_character = self.timeline_array[self.label_content_index]
+                #print('CURRENT CHARACTER: %s' % current_character)
+                if current_character == "{":
+                    self.label_content_index = self.label_content_index + 10
+                    current_character = self.timeline_array[self.label_content_index]
                 self.label_content = self.label_content + current_character
-                print(self.label_content)
+                #print(self.label_content)
                 self.label_content_index = self.label_content_index + 1
 
                 #print('letter load test')
@@ -394,14 +451,14 @@ class Reader():
     def img_draw(self):
         #timeline cues direct reader to load and blit and animate everything inside img_draw. img_draw must be made more robust and image files must draw from elsewhere
 
-        print('img_draw called')
+        #print('img_draw called')
         frames = self.animation_que
         #print(len(frames))
         #image_array = self.image_array
         count = self.animation_counter
         if count < len(frames) and len(frames) > 0:
-            print(count)
-            current_pic = pyglet.image.load(frames[count-1])
+            #print(count)
+            current_pic = pyglet.resource.image(frames[count-1])
             #print(f"{current_pic} = CURRENT PIC")
             #pic = image.load(current_pic)
             pic = current_pic
@@ -418,10 +475,14 @@ class Reader():
         if len(self.character_que) != 0:
             character_frames = self.character_que[0]
             character_side = self.character_que[1]
-            test_pic = pyglet.image.load(character_frames)
+            test_pic = pyglet.resource.image(character_frames)
+            glEnable(GL_BLEND)
+
             if character_side == "left":
+                glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
                 test_pic.blit(0,0)
             if character_side == "right":
+                glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
                 test_pic.blit(1000,0)
 
 
@@ -556,20 +617,21 @@ class Completion():
 
 class AudioPlayer():
     # def __init__(self):
-    #     music_player = pyglet.media.Player()
-    #     music = pyglet.media.load("theme0.wav")
+    #     audio_player = pyglet.media.Player()
+    #     music = pyglet.resource.media("theme0.wav")
     #     music_player.queue(music)
     #     #music_player.eos_action = pyglet.media.SourceGroup.loop
     #     music_player.play()
-    def play(audio_que):
-        #print('AUDIO QUE:'+audio_que[1])
-        if audio_que[0] == 'PLAY':
-            player = pyglet.media.Player()
-            source = pyglet.media.load(audio_que[1])
-            player.queue(source)
-            setattr(player,'loop',True)
-            player.play()
-            #print('playing'+audio_que[1])
+
+    def play(self,audio_que):
+        if reader.audio_que != None and reader.audio_que[2] != "":
+            print('AUDIO QUE:'+audio_que[2])
+
+            # player = pyglet.media.Player()
+            source = pyglet.resource.media(audio_que[2])
+            audio_player.queue(source)
+            #setattr(player,'loop',True)
+            audio_player.play()
         #check que string for commands: STOP, START, FADE, VOICE, BGM
         #VOICE LINE stop currently playing and play new ones
 class AnimPlayer():
@@ -577,6 +639,9 @@ class AnimPlayer():
         pass
 
 if __name__ == '__main__':
+    pyglet.resource.path = ['resources/media','resources/frames', 'resources/fonts']
+    pyglet.resource.reindex()
+
     clock = pyglet.clock
     window = Window(style=pyglet.window.Window.WINDOW_STYLE_BORDERLESS)
     window.set_size(1280, 720)
@@ -590,9 +655,12 @@ if __name__ == '__main__':
     keys = key.KeyStateHandler()
 
     music_player = pyglet.media.Player()
-    music = pyglet.media.load("theme0.wav")
+    music = pyglet.resource.media("theme0.wav")
     music_player.queue(music)
     setattr(music_player,'loop',True)
+
+    audio_player = pyglet.media.Player()
+    audioPlayer = AudioPlayer()
 
     #music_player.eos_action = pyglet.media.SourceGroup.loop
     music_player.play()
@@ -615,8 +683,11 @@ if __name__ == '__main__':
 
     #pyglet.sprite.Sprite(img=pyglet.image.load('picture.png')).draw()
 
-    pyglet.font.add_file('Chrono Cross.ttf')
+    pyglet.resource.add_font('Chrono Cross.ttf')
     pyglet.font.load('Chrono Cross')
+
+    def on_close():
+        pyglet.font.quit()
     # Get the font name used at character index 0
     #font_name = document.get_style('Chrono Cross', 0)
 
@@ -637,7 +708,7 @@ if __name__ == '__main__':
         if window.game_state == 1:
             #startmenu
             #reader.menu_draw()
-            print('game state = 1')
+            #print('game state = 1')
 
             #start menu binary choice tree
             if keys[key.SPACE]:
@@ -651,25 +722,27 @@ if __name__ == '__main__':
             #main menu
             window.game_state = 3
             #get load information from main to present menus
-        if window.game_state == 3:
             current_timeline = reader.timeline_read(reader.current_page)
-            print(current_timeline)
-            if reader.audio_que != None:
-                music_que = reader.audio_que[0]
-                if not music_que:
-                    pass
-                else:
-                    music = pyglet.media.load(reader.audio_que[1])
-                    if reader.current_page == reader.latest_page:
-                        if music_player.playing == True:
-                            if reader.audio_que[0] == 'STOP':
-                                music_player.pause()
-                        else:
-                            if music_player.playing != True:
-                                if reader.audio_que[0] == 'PLAY':
-                                    music_player.queue(music)
-                                    music_player.next_source()
-                                    music_player.play()
+        if window.game_state == 3:
+            #current_timeline = reader.timeline_read(reader.current_page)
+            #print(current_timeline)
+            #if reader.audio_que != None and reader.audio_que[1] != "":
+            # if reader.audio_que[1] != "":
+            #     music_que = reader.audio_que[0]
+            #     if not music_que:
+            #         pass
+            #     else:
+            #         music = pyglet.resource.media(reader.audio_que[1])
+            #         if reader.current_page == reader.latest_page:
+            #             if music_player.playing == True:
+            #                 if reader.audio_que[0] == 'STOP':
+            #                     music_player.pause()
+            #             else:
+            #                 if music_player.playing != True:
+            #                     if reader.audio_que[0] == 'PLAY':
+            #                         music_player.queue(music)
+            #                         music_player.next_source()
+            #                         music_player.play()
 
             #reader.letter_load()
             #reader.label_draw()
@@ -679,60 +752,75 @@ if __name__ == '__main__':
 
             frames = reader.animation_que
             frames_length = len(frames)
-            image_array = reader.image_array
+            #image_array = reader.image_array
+            #print(image_array)
+            print(frames)
             count = reader.animation_counter
 
             if frames_length > 0:
-                print('images present')
+                #print('images present')
+                if count < frames_length:
+                    #print(count)
 
-                if len(image_array) <= frames_length:
-                    #increment frame counter
-                    #current frame(stored in class, accessed and updated from here), total frames, starting frame, next frame,
-                    print('animation counter:{}'.format(count))
-                    if count < frames_length:
-                        print(count)
-                        '''
-                        current_pic = pyglet.image.load(frames[count])
-
-                        image_array.append(
-                            #pyglet.resource.image(frames[count])
-                            pyglet.image.AnimationFrame(current_pic, duration=0.1)
-                        )
-                        print('appended {y}'.format(y=frames[count]))
-                        print(len(image_array))
-                        '''
-                        count = count + 1
-                        reader.animation_counter = count
-                        print('new count: {}'.format(count))
-                        #reader.img_draw()
+                    count = count + 1
+                    reader.animation_counter = count
+                    #print('new count: {}'.format(count))
+                    #reader.img_draw()
 
 
-                    if count == frames_length or count > frames_length:
-                        count = 0
-                        reader.animation_counter = count
-                        print('loop reset')
+                if count >= frames_length:
+                    count = 0
+                    reader.animation_counter = count
+                    #print('loop reset')
 
-                if len(image_array) == frames_length:
-
-                    reader.image_array = image_array
-
-                    ''' Animate here?'''
-
-                    #ani = pyglet.image.Animation.from_image_sequence(image_array, duration=0.1, loop=True)
-
-                    '''
-                    current_animation = pyglet.image.Animation(frames=image_array)
-                    sprite = pyglet.sprite.Sprite(
-                        img = current_animation
-                    )
-                    sprite.scale = .25
-                    '''
-                    #sprite.draw()
-                    #print('sprite drawn')
-
-                    image_array = []
-                    reader.image_array = image_array
-                    print('ANIMATIONS CLEARED')
+                # if len(image_array) <= frames_length:
+                #     #increment frame counter
+                #     #current frame(stored in class, accessed and updated from here), total frames, starting frame, next frame,
+                #     #print('animation counter:{}'.format(count))
+                #     if count < frames_length:
+                #         #print(count)
+                #         '''
+                #         current_pic = pyglet.image.load(frames[count])
+                #
+                #         image_array.append(
+                #             #pyglet.resource.image(frames[count])
+                #             pyglet.image.AnimationFrame(current_pic, duration=0.1)
+                #         )
+                #         print('appended {y}'.format(y=frames[count]))
+                #         print(len(image_array))
+                #         '''
+                #         count = count + 1
+                #         reader.animation_counter = count
+                #         #print('new count: {}'.format(count))
+                #         #reader.img_draw()
+                #
+                #
+                #     if count == frames_length or count > frames_length:
+                #         count = 0
+                #         reader.animation_counter = count
+                #         #print('loop reset')
+                #
+                # if len(image_array) == frames_length:
+                #
+                #     reader.image_array = image_array
+                #
+                #     ''' Animate here?'''
+                #
+                #     #ani = pyglet.image.Animation.from_image_sequence(image_array, duration=0.1, loop=True)
+                #
+                #     '''
+                #     current_animation = pyglet.image.Animation(frames=image_array)
+                #     sprite = pyglet.sprite.Sprite(
+                #         img = current_animation
+                #     )
+                #     sprite.scale = .25
+                #     '''
+                #     #sprite.draw()
+                #     #print('sprite drawn')
+                #
+                #     image_array = []
+                #     reader.image_array = image_array
+                #     #print('ANIMATIONS CLEARED')
 
 
 
@@ -743,6 +831,7 @@ if __name__ == '__main__':
 
 
     clock.schedule_interval(tick, 0.04)
+    #clock.schedule_interval(tick, 0.001)
     window.push_handlers(mousebuttons)
     window.push_handlers(keys)
     #glClearColor(0.5,1,0.7,1)
