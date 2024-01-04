@@ -2,7 +2,7 @@
         {
 		"page0":[
       ["","{bold True}My hands held in hers \n and my eyes shut, I sway gently", 1],
-			["PLAY","theme1.wav", ""],
+			["PLAY","audio1.mp3", ""],
 			[
 			],
       [
@@ -11,7 +11,7 @@
 		,
     "page1":[
       ["","\"Now relax - your feet up to your knees, lower back, then up to your chest\"",1],
-			["PLAY","","audio1.mp3"],
+			[],
       [
         "black.png"
 			],
@@ -21,26 +21,85 @@
 		,
     "page2":[
         ["","I'm walking along a barn.",0],
-        [],
+        ["STOP","audio1.mp3","sfx1.wav"],
         [
   "warehouse0001.png",
-  "warehouse0002.png"
+  "warehouse0002.png",
+  "warehouse0003.png",
+  "warehouse0004.png",
+  "warehouse0005.png",
+  "warehouse0006.png",
+  "warehouse0007.png",
+  "warehouse0008.png",
+  "warehouse0009.png",
+  "warehouse0010.png",
+  "warehouse0011.png",
+  "warehouse0012.png",
+  "warehouse0013.png",
+  "warehouse0014.png",
+  "warehouse0015.png",
+  "warehouse0016.png",
+  "warehouse0017.png",
+  "warehouse0018.png",
+  "warehouse0019.png",
+  "warehouse0020.png",
+  "warehouse0021.png",
+  "warehouse0022.png",
+  "warehouse0023.png",
+  "warehouse0024.png",
+  "warehouse0025.png",
+  "warehouse0026.png",
+  "warehouse0027.png",
+  "warehouse0028.png",
+  "warehouse0029.png",
+  "warehouse0030.png",
+  "warehouse0031.png",
+  "warehouse0032.png",
+  "warehouse0033.png",
+  "warehouse0034.png",
+  "warehouse0035.png",
+  "warehouse0036.png",
+  "warehouse0037.png",
+  "warehouse0038.png",
+  "warehouse0039.png",
+  "warehouse0040.png",
+  "warehouse0041.png",
+  "warehouse0042.png",
+  "warehouse0043.png",
+  "warehouse0044.png",
+  "warehouse0045.png",
+  "warehouse0046.png",
+  "warehouse0047.png",
+  "warehouse0048.png",
+  "warehouse0049.png",
+  "warehouse0050.png",
+  "warehouse0051.png",
+  "warehouse0052.png",
+  "warehouse0053.png",
+  "warehouse0054.png",
+  "warehouse0055.png",
+  "warehouse0056.png",
+  "warehouse0057.png",
+  "warehouse0058.png",
+  "warehouse0059.png",
+  "warehouse0060.png"
+]
 
-],
+,
       [
-        "picture0.png","right"
+
       ]
 
     ]
     ,
     "page3":[
         ["",""],
-        [],
+        ["PLAY","audio2.mp3"],
         [
           "storyboardFrames000100.png"
       ],
       [
-
+        "picture0.png","right"
       ]
 
     ]
@@ -61,8 +120,7 @@
         ["","This is the end of chapter 1"],
         ["STOP","theme0.wav"],
         [
-        "pracposes00011.png",
-        "pracposes00012.png"
+        "pracposes00011.png"
       ],
       [
 
@@ -91,7 +149,7 @@
   ]
 		,
 		"page1":[
-      ["",""],
+      ["","test text", 1],
       ["",""],
       [
         "storyboardFrames000400.png"
@@ -102,7 +160,7 @@
   ]
 		,
     "page2":[
-      ["","Some more inverted text", 1],
+      ["","Some more inverted text"],
       ["",""],
       [
         "black.png"
@@ -112,7 +170,7 @@
     ,
 
     "page3":[
-      ["","Even more inverted text"],
+      ["","Even more inverted text",1],
       ["",""],
       [
         "black.png"

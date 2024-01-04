@@ -72,7 +72,15 @@ class Window(pyglet.window.Window):
         if button == 1:
             #print('left click mouse')
 
+
             if self.game_state == 3:
+                print('COMPLETION:%s'%completion.report())
+                print("DATA LENGTH %s"%reader.total_chapters)
+                print("CURRENT PAGE %s"%reader.current_page)
+                print("CURRENT LATEST %s"%reader.latest_page)
+                print("CURRENT CHAPTER %s"%reader.current_chapter)
+                print('TOTAL PAGES:%s'%reader.total_pages)
+
 
             #if game in play mode
                 #if Backlog
@@ -81,10 +89,10 @@ class Window(pyglet.window.Window):
                     #turn page with BACKLOG
                     reader.current_page = reader.current_page + 1
 
-                    #reader.timeline_read(reader.current_page)
+                    reader.timeline_read(reader.current_page)
                 #if Current
                 else:
-                    reader.latest_page = reader.latest_page + 1
+
 
 
                     #new chapter
@@ -99,10 +107,12 @@ class Window(pyglet.window.Window):
                         #reader.label_content_index = 0
                         reader.label_content = ""
                         reader.label_content = reader.timeline_content
+                        #reader.label_content_index = len(reader.timeline_array)
 
                         #reader.latest_page = reader.latest_page + 1
 
-                        reader.label_content_index == len(reader.timeline_array)
+                        reader.label_content_index = len(reader.timeline_array)-1
+
                     #being Latest, if letterloading will load all the text without doing anything else,  increase
                     #reader.latest_page = reader.latest_page + 1
 
@@ -113,7 +123,12 @@ class Window(pyglet.window.Window):
                             print('turn page')
                             reader.label_content_index = 0
                             reader.label_content = "";
+                            #if reader.current_page < reader.latest_page:
+
                             reader.current_page = reader.current_page + 1
+                            if reader.current_page > reader.latest_page:
+                                reader.latest_page = reader.latest_page + 1
+
 
                             # if reader.current_page > reader.latest_page:
                             #     reader.latest_page = reader.latest_page + 1
@@ -135,21 +150,17 @@ class Window(pyglet.window.Window):
                              reader.current_page = 0
                              #reader.current_page = -1
                              print('new chapter started')
+                        reader.timeline_read(reader.current_page)
 
                     #reader.current_chapter = reader.current_chapter + 1
                     if reader.current_chapter == reader.total_chapters:
                         completion.route_finish()
                         pyglet.app.exit()
                 #reader.current_page = reader.current_page + 1
-                reader.timeline_read(reader.current_page)
+
                 audioPlayer.play(reader.audio_que)
 
-                print('COMPLETION:%s'%completion.report())
-                print("DATA LENGTH %s"%reader.total_chapters)
-                print("CURRENT PAGE %s"%reader.current_page)
-                print("CURRENT LATEST %s"%reader.latest_page)
-                print("CURRENT CHAPTER %s"%reader.current_chapter)
-                print('TOTAL PAGES:%s'%reader.total_pages)
+
 
 
     def on_draw(self):
@@ -159,12 +170,15 @@ class Window(pyglet.window.Window):
         #print("CURRENT CHAPTER %s"%reader.current_chapter)
         #print('TOTAL PAGES:%s'%reader.total_pages)
         #pyglet.graphics.Batch().draw()
-        #print(self.game_state)
+        clock = pyglet.clock
+        cfreq = clock.get_frequency()
+        print(f"{cfreq} since last draw")
         #mouse click logic; detecting mouse on every draw frame
         if self.game_state == 1:
             reader.menu_draw()
         if self.game_state == 3:
             reader.img_draw()
+
             reader.character_draw()
             reader.letter_load()
             #print("INVERSION:%d" % reader.inversion)
@@ -220,11 +234,7 @@ class Window(pyglet.window.Window):
         if mousebuttons[mouse.RIGHT] is True:
             print('right click mouse')
     def on_close(self):
-        music_player.pause()
-        music_player.delete()
-        audio_player.pause()
-        audio_player.delete()
-
+        pass
                 #if mousebuttons[mouse.LEFT] is False and reader.current_page == reader.total_pages:
                 #print('last page in chapter')
                 #reader.timeline_read(reader.current_page)
@@ -456,13 +466,15 @@ class Reader():
         #print(len(frames))
         #image_array = self.image_array
         count = self.animation_counter
+        #print(len(frames))
+        #print(count)
+
         if count < len(frames) and len(frames) > 0:
             #print(count)
             current_pic = pyglet.resource.image(frames[count-1])
             #print(f"{current_pic} = CURRENT PIC")
             #pic = image.load(current_pic)
-            pic = current_pic
-            pic.blit(0,0)
+            current_pic.blit(0,0)
         #Test reaction images below
         #test_pic = pyglet.image.load('picture.png')
         #test_pic.blit(0,0)
@@ -643,7 +655,7 @@ if __name__ == '__main__':
     pyglet.resource.reindex()
 
     clock = pyglet.clock
-    window = Window(style=pyglet.window.Window.WINDOW_STYLE_BORDERLESS)
+    window = Window(style=pyglet.window.Window.WINDOW_STYLE_BORDERLESS, vsync=0)
     window.set_size(1280, 720)
 
     # cursor = pyglet.image.load('cursor.png')
@@ -699,8 +711,9 @@ if __name__ == '__main__':
     # def drawFrames(dt):
     #     print("frame drawn")
     def tick(dt):
+
         #print('tick')
-        print(f"{dt} seconds since last callback")
+        #print(f"{dt} seconds since last callback")
 
         if window.game_state == 0:
             #bootup
@@ -724,6 +737,10 @@ if __name__ == '__main__':
             #get load information from main to present menus
             current_timeline = reader.timeline_read(reader.current_page)
         if window.game_state == 3:
+
+            #window.clear()
+            #reader.img_draw()
+
             #current_timeline = reader.timeline_read(reader.current_page)
             #print(current_timeline)
             #if reader.audio_que != None and reader.audio_que[1] != "":
@@ -754,7 +771,7 @@ if __name__ == '__main__':
             frames_length = len(frames)
             #image_array = reader.image_array
             #print(image_array)
-            print(frames)
+            #print(frames)
             count = reader.animation_counter
 
             if frames_length > 0:
