@@ -119,31 +119,12 @@
     "page5":[
         ["","This is the end of chapter 1"],
         ["STOP","theme0.wav"],
-<<<<<<< HEAD
-	[ 
-	]
-	
-      ],
-		"page3":["chapter end",
-    [""],
-    [
-    ]]
-	}
-,
-	{
-		"page0":["Here is chapter 2 test"]
-		,
-		"page1":["Here is chapter 2 page 1 :O"]
-		,
-		"page2":["chapter end"]
-=======
         [
         "pracposes00011.png"
       ],
       [
 
       ]
->>>>>>> c5bf57fb3672f16550f4d7295cfad9145aceee9e
 
     ]
 		,
