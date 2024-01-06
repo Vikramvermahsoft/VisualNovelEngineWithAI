@@ -157,7 +157,7 @@ class Window(pyglet.window.Window):
                         completion.route_finish()
                         pyglet.app.exit()
                 #reader.current_page = reader.current_page + 1
-
+                audioPlayer.stop()
                 audioPlayer.play(reader.audio_que)
 
 
@@ -646,6 +646,9 @@ class AudioPlayer():
             audio_player.play()
         #check que string for commands: STOP, START, FADE, VOICE, BGM
         #VOICE LINE stop currently playing and play new ones
+    def stop(self):
+        if audio_player.playing == True:
+            audio_player.pause()
 class AnimPlayer():
     def play():
         pass
