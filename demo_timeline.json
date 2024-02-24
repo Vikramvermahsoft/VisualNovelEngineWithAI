@@ -1,32 +1,179 @@
 [
         {
 		"page0":[
-      ["Speaker","This is the first line of the story"],
-			["PLAY","theme1.wav"],
+      [""," ...",1],
+			["PLAY","theme1.wav", "sfx1.wav"],
 			[
-			  "pracposes00011.png",
-			 	"pracposes00012.png",
-        "pracposes00020.png",
-        "pracposes00024.png",
-        "pracposes00028.png",
-        "pracposes00036.png"
+        "black.png"
 			],
       [
-        "character0_happy.png",
-        "left"
+
       ]
 		]
 		,
     "page1":[
-      ["","This second line of the story is a \n test that needs to be much longer than the first"],
-			["PLAY","theme1.wav"],
+      ["","\"what was that?\""],
+			[],
       [
-			  "pracposes00011.png"
+        "black.png"
 			],
       [
-      "character1_annoyed.png",
-      "right"
+
       ]
-    ]
-      }
+		],
+    "page2":[
+      ["",""],
+			["","","sfx1.wav"],
+      [
+        "black.png"
+			],
+      [
+
+      ]
+		],
+    "page3":[
+      ["","Awakening to icy fear in his nervous system, \n electrifying his skin under the blankets"],
+      ["PLAY","theme1.wav"],
+      [
+    "reflections00113083.tif",
+    "reflections00113084.tif",
+    "reflections00113085.tif",
+    "reflections00113086.tif",
+    "reflections00113087.tif",
+    "reflections00113088.tif",
+    "reflections00113089.tif",
+    "reflections00113090.tif",
+    "reflections00113091.tif",
+    "reflections00113092.tif",
+    "reflections00113093.tif",
+    "reflections00113094.tif"
+  ]
+,
+      [
+
+      ]
+    ],
+    "page4":[
+    ["","", 0],
+    [],
+    [
+    "warehouse0001.png",
+    "warehouse0002.png",
+    "warehouse0003.png",
+    "warehouse0004.png",
+    "warehouse0005.png",
+    "warehouse0006.png",
+    "warehouse0007.png",
+    "warehouse0008.png",
+    "warehouse0009.png",
+    "warehouse0010.png",
+    "warehouse0011.png",
+    "warehouse0012.png"
+  ],
+    []
+  ]
+  ,
+  "page5":[
+  ["","He keeps his eyes open and listens", 0],
+  [],
+  [
+  "warehouse0001.png",
+  "warehouse0002.png",
+  "warehouse0003.png",
+  "warehouse0004.png",
+  "warehouse0005.png",
+  "warehouse0006.png",
+  "warehouse0007.png",
+  "warehouse0008.png",
+  "warehouse0009.png",
+  "warehouse0010.png",
+  "warehouse0011.png",
+  "warehouse0012.png"
+],
+  []
+
+
+],
+"page6":[
+["","", 0],
+["PLAY","theme1.wav"],
+[
+"warehouse0001.png",
+"warehouse0002.png",
+"warehouse0003.png",
+"warehouse0004.png",
+"warehouse0005.png",
+"warehouse0006.png",
+"warehouse0007.png",
+"warehouse0008.png",
+"warehouse0009.png",
+"warehouse0010.png",
+"warehouse0011.png",
+"warehouse0012.png"
+],
+[]
+],
+"page7":[
+[],
+["PLAY","theme1.wav","sfx1.wav"],
+[
+"warehouse0001.png",
+"warehouse0002.png",
+"warehouse0003.png",
+"warehouse0004.png",
+"warehouse0005.png",
+"warehouse0006.png",
+"warehouse0007.png",
+"warehouse0008.png",
+"warehouse0009.png",
+"warehouse0010.png",
+"warehouse0011.png",
+"warehouse0012.png"
+],
+[]
+],
+  "page8":[
+    ["","there it was. \n utensils sliding in drawers, shifting feet, \n there was no doubt: \n someone was in the house",1],
+    ["PLAY","theme1.wav","sfx1.wav"],
+    ["black.png"],
+    []
+],
+  "page9":[
+    ["","Chills run down his spine. His breathing slips into sharp arrhymic inhales and his stomach sinks."],
+    [],
+    ["black.png"],
+    []
+],
+  "page10":[
+    ["","Instinct finally kicks in and he reaches for the rifle by his bedstand...",0],
+    [],
+    [
+    "warehouse0001.png",
+    "warehouse0002.png",
+    "warehouse0003.png",
+    "warehouse0004.png",
+    "warehouse0005.png",
+    "warehouse0006.png",
+    "warehouse0007.png",
+    "warehouse0008.png",
+    "warehouse0009.png",
+    "warehouse0010.png",
+    "warehouse0011.png",
+    "warehouse0012.png"
+  ],
+    []
+],
+  "page11":[
+    ["","whoops, no rifle. His fingers pass desperately through empty air.",1],
+    [],
+    ["black.png"],
+    []
+],
+  "page12":[
+    ["","should not show",1],
+    [],
+    ["black.png"],
+    []
+]
+}
 ]

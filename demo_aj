@@ -1,0 +1,27 @@
+[
+        {
+		"page0":[
+      [""," Listen to me Joe",1],
+			["PLAY","theme1.wav", "sfx1.wav"],
+			[
+        "black.png"
+			],
+      [
+      ]
+		],
+    "page0":[
+      ["","I grew up talking about the clockwork elves and these type of things",0],
+			["PLAY","theme1.wav", "sfx1.wav"],
+      [
+  "shot00_.png",
+  "shot01_.png",
+  "shot02_.png",
+  "shot03_.png",
+  "shot04_.png",
+  "shot05_.png"
+],
+      [
+      ]
+		]
+        }
+]

@@ -176,7 +176,11 @@ class Window(pyglet.window.Window):
         #mouse click logic; detecting mouse on every draw frame
         if self.game_state == 1:
             reader.menu_draw()
+
         if self.game_state == 3:
+
+
+
             reader.img_draw()
 
             reader.character_draw()
@@ -208,18 +212,20 @@ class Window(pyglet.window.Window):
                     #if new chapter
                         reader.save_label_draw()
             reader.speaker_label_draw()
-            if reader.audio_que[1] != "":
-                music_que = reader.audio_que[0]
-                if not music_que:
-                    pass
-                else:
-                    music = pyglet.resource.media(reader.audio_que[1])
-                    if reader.current_page == reader.latest_page:
-                        if music_player.playing == True:
-                            if reader.audio_que[0] == 'STOP':
-                                music_player.pause()
-                        else:
-                            if music_player.playing != True:
+            if len(reader.audio_que) > 0:
+                if reader.audio_que[1] != "":
+                    music_que = reader.audio_que[0]
+                    if not music_que:
+                        pass
+                    else:
+                        music = pyglet.resource.media(reader.audio_que[1])
+                        if reader.current_page == reader.latest_page:
+                            if music_player.playing == True:
+                                print('MUSiC is playing')
+                                if music_que == 'STOP':
+                                    music_player.pause()
+                            else:
+
                                 if reader.audio_que[0] == 'PLAY':
                                     music_player.queue(music)
                                     music_player.next_source()
@@ -228,11 +234,7 @@ class Window(pyglet.window.Window):
 
 
 
-        if mousebuttons[mouse.LEFT] is True:
-            print('left click mouse')
 
-        if mousebuttons[mouse.RIGHT] is True:
-            print('right click mouse')
     def on_close(self):
         pass
                 #if mousebuttons[mouse.LEFT] is False and reader.current_page == reader.total_pages:
@@ -268,7 +270,7 @@ class Reader():
         self.total_pages = 0
         #comes from timeline.json, how many pages in a chapter
         self.total_chapters = 1
-        self.audio_que = ""
+        self.audio_que = []
         self.animation_que = {}
         self.animation_counter = 0
         self.image_array = []
@@ -282,10 +284,10 @@ class Reader():
         #chapter_num = 'chapter'+str(self.current_chapter)
         chapter_num = self.current_chapter
         page_num = str(self.current_page)
-        with open('timeline.json') as f:
-            data = json.load(f)
+        #with open('timeline.json') as f:
+        #    data = json.load(f)
         #print(timeline_id)
-        #print(data)
+        print(data)
         #print(data[0])
         #print(data[chapter_num]['page%s'%page_num])
         #print(data[chapter_num][page_num])
@@ -299,7 +301,7 @@ class Reader():
             #route completion
 
         else:
-
+            #pass
             self.total_pages = len(data[chapter_num])-1
 
             #for i in data['content']:
@@ -308,6 +310,8 @@ class Reader():
             timeline_que = data[chapter_num]['page%s'%page_num][0]
             audio_que = data[chapter_num]['page%s'%page_num][1]
             animation_que = data[chapter_num]['page%s'%page_num][2]
+            print(animation_que)
+            print(len(animation_que))
             character_que = data[chapter_num]['page%s'%page_num][3]
 
             #if timeline_que != None:
@@ -352,6 +356,7 @@ class Reader():
             document_content = ""
             document_content = "{.margin_left '150px'}{font_name 'Chrono Cross'}{font_size 28}{color (255, 255, 255, 255)}"+self.label_content
         else:
+            document_content = ""
             document_content = "{.margin_left '150px'}{font_name 'Chrono Cross'}{font_size 28}"+self.label_content
 
         document = pyglet.text.decode_attributed(document_content)
@@ -393,6 +398,7 @@ class Reader():
         if len(self.speaker_content) == 0:
             pass
         else:
+            document_content2 = ""
             document_content2 = "{.margin_left '10px'}{font_name 'Chrono Cross'}{font_size 20}{bold True}"+self.speaker_content+":"
 
 
@@ -464,17 +470,20 @@ class Reader():
         #print('img_draw called')
         frames = self.animation_que
         #print(len(frames))
-        #image_array = self.image_array
+
         count = self.animation_counter
         #print(len(frames))
         #print(count)
 
         if count < len(frames) and len(frames) > 0:
             #print(count)
-            current_pic = pyglet.resource.image(frames[count-1])
+            ''' THIS IS THE SLOW DOWN'''
+            #current_pic = pyglet.resource.image(frames[count-1])
+            current_pic = pyglet.image.load('resources/frames/'+frames[count-1])
             #print(f"{current_pic} = CURRENT PIC")
             #pic = image.load(current_pic)
             current_pic.blit(0,0)
+            #pass
         #Test reaction images below
         #test_pic = pyglet.image.load('picture.png')
         #test_pic.blit(0,0)
@@ -657,9 +666,12 @@ if __name__ == '__main__':
     pyglet.resource.path = ['resources/media','resources/frames', 'resources/fonts']
     pyglet.resource.reindex()
 
+
     clock = pyglet.clock
-    window = Window(style=pyglet.window.Window.WINDOW_STYLE_BORDERLESS, vsync=0)
+    window = Window(style=pyglet.window.Window.WINDOW_STYLE_BORDERLESS, vsync=False)
     window.set_size(1280, 720)
+    with open('demo_timeline.json') as f:
+        data = json.load(f)
 
     # cursor = pyglet.image.load('cursor.png')
     # image_cursor = pyglet.window.ImageMouseCursor(cursor, 16, 8)
@@ -769,7 +781,7 @@ if __name__ == '__main__':
             '''
             Animation code below. called every draw frame, if timeline->reader->image_array variable is not empty
             '''
-
+            #frames = []
             frames = reader.animation_que
             frames_length = len(frames)
             #image_array = reader.image_array
@@ -850,7 +862,9 @@ if __name__ == '__main__':
 
 
 
-    clock.schedule_interval(tick, 0.04)
+    clock.schedule_interval(tick, 1/24)
+
+
     #clock.schedule_interval(tick, 0.001)
     window.push_handlers(mousebuttons)
     window.push_handlers(keys)
