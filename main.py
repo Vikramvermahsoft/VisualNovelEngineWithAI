@@ -20,7 +20,7 @@ class Window(pyglet.window.Window):
         self.game_state = 0
         print('window test')
     #
-    # def game_state_handler(self, state_variable):
+    # def game_state_handler(self, stat_variable):
     #     if state_variable == 0:
     #         self.game_state = 0
     #         #reset
@@ -211,7 +211,7 @@ class Window(pyglet.window.Window):
                     if reader.current_page == 0:
                     #if new chapter
                         reader.save_label_draw()
-            reader.speaker_label_draw()
+            reader.speaker_label_draw(reader.inversion)
             if len(reader.audio_que) > 0:
                 if reader.audio_que[1] != "":
                     music_que = reader.audio_que[0]
@@ -353,11 +353,9 @@ class Reader():
         # document_content = "{.margin_left '150px'}{font_name 'Chrono Cross'}{font_size 28}"+self.label_content+"{color (0, 0, 0, 255)}"
         if inversion == 1:
             #print("INVERTED")
-            document_content = ""
-            document_content = "{.margin_left '150px'}{font_name 'Chrono Cross'}{font_size 28}{color (255, 255, 255, 255)}"+self.label_content
+            document_content = "{.margin_left '150px'}{font_name 'Chrono Cross'}{font_size 28}{color (255, 255, 255, 255)}{background_color (0,0,0,255)}"+self.label_content
         else:
-            document_content = ""
-            document_content = "{.margin_left '150px'}{font_name 'Chrono Cross'}{font_size 28}"+self.label_content
+            document_content = "{.margin_left '150px'}{font_name 'Chrono Cross'}{font_size 28}{background_color (255,255,255,255)}"+self.label_content
 
         document = pyglet.text.decode_attributed(document_content)
         #document.font_name = 'Chrono Cross'
@@ -373,8 +371,9 @@ class Reader():
         #         #color=(0, 0, 0, 255)
         #         )
         width = window.width//1.35
-        height = window.height//2
-        layout = pyglet.text.layout.TextLayout(document, width ,height, wrap_lines=True, multiline=True)
+        height = window.height//3
+
+        layout = pyglet.text.layout.TextLayout(document, width ,height,  wrap_lines=True, multiline=True)
 
         #label.draw()
         layout.draw()
@@ -394,12 +393,17 @@ class Reader():
 
         #label.draw()
         layout1.draw()
-    def speaker_label_draw(self):
+    def speaker_label_draw(self, inversion):
         if len(self.speaker_content) == 0:
             pass
         else:
-            document_content2 = ""
-            document_content2 = "{.margin_left '10px'}{font_name 'Chrono Cross'}{font_size 20}{bold True}"+self.speaker_content+":"
+            if inversion == 1:
+                #print("INVERTED")
+                document_content2 = "{.margin_left '10px'}{font_name 'Chrono Cross'}{font_size 20}{bold True}{color (255, 255, 255, 255)}"+self.speaker_content+":"
+
+            else:
+                document_content2 = "{.margin_left '10px'}{font_name 'Chrono Cross'}{font_size 20}{bold True}"+self.speaker_content+":"
+
 
 
             document2 = pyglet.text.decode_attributed(document_content2)
@@ -669,7 +673,7 @@ if __name__ == '__main__':
 
     clock = pyglet.clock
     window = Window(style=pyglet.window.Window.WINDOW_STYLE_BORDERLESS, vsync=False)
-    window.set_size(1280, 720)
+    window.set_size(1786, 1086)
     with open('demo_timeline.json') as f:
         data = json.load(f)
 

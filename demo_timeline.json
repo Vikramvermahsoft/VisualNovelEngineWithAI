@@ -1,18 +1,15 @@
 [
-        {
-		"page0":[
-      [""," ...",1],
-			["PLAY","theme1.wav", "sfx1.wav"],
+    {
+	"page0":[
+      [""," ...?",1],
+			["PLAY","theme13.wav", "sfx1.wav"],
 			[
         "black.png"
 			],
-      [
-
-      ]
-		]
-		,
+		[]
+		],
     "page1":[
-      ["","\"what was that?\""],
+      ["","\"Huh?\""],
 			[],
       [
         "black.png"
@@ -32,144 +29,389 @@
       ]
 		],
     "page3":[
-      ["","Awakening to icy fear in his nervous system, \n electrifying his skin under the blankets"],
-      ["PLAY","theme1.wav"],
+      ["","From depths of sleep he is fetched, dragged through muddy half-consciousness, suddenly, breaking forth into a firmament of icy fear. \n His skin electric under his clothes, he comes to full wakefulness in his body, \n his toe twitching in its boot.",0],
+      ["",""],
       [
-    "reflections00113083.tif",
-    "reflections00113084.tif",
-    "reflections00113085.tif",
-    "reflections00113086.tif",
-    "reflections00113087.tif",
-    "reflections00113088.tif",
-    "reflections00113089.tif",
-    "reflections00113090.tif",
-    "reflections00113091.tif",
-    "reflections00113092.tif",
-    "reflections00113093.tif",
-    "reflections00113094.tif"
-  ]
-,
-      [
+	  "ceiling0000.png"
+	  ],
+	 [
 
-      ]
-    ],
+	 ]
+	  ],
     "page4":[
-    ["","", 0],
-    [],
-    [
-    "warehouse0001.png",
-    "warehouse0002.png",
-    "warehouse0003.png",
-    "warehouse0004.png",
-    "warehouse0005.png",
-    "warehouse0006.png",
-    "warehouse0007.png",
-    "warehouse0008.png",
-    "warehouse0009.png",
-    "warehouse0010.png",
-    "warehouse0011.png",
-    "warehouse0012.png"
-  ],
-    []
-  ]
-  ,
-  "page5":[
-  ["","He keeps his eyes open and listens", 0],
+		["",""],
+		[
+
+		],
+		[
+			"ceiling0000.png"
+		],
+		[]
+	],
+	"page5":[
+	["","He keeps his eyes open and listens",1],
+  ["",""],
   [],
-  [
-  "warehouse0001.png",
-  "warehouse0002.png",
-  "warehouse0003.png",
-  "warehouse0004.png",
-  "warehouse0005.png",
-  "warehouse0006.png",
-  "warehouse0007.png",
-  "warehouse0008.png",
-  "warehouse0009.png",
-  "warehouse0010.png",
-  "warehouse0011.png",
-  "warehouse0012.png"
-],
   []
 
 
 ],
-"page6":[
-["","", 0],
-["PLAY","theme1.wav"],
-[
-"warehouse0001.png",
-"warehouse0002.png",
-"warehouse0003.png",
-"warehouse0004.png",
-"warehouse0005.png",
-"warehouse0006.png",
-"warehouse0007.png",
-"warehouse0008.png",
-"warehouse0009.png",
-"warehouse0010.png",
-"warehouse0011.png",
-"warehouse0012.png"
+	"page6":[
+	["",""],
+	["PLAY","audio1.mp3"],
+	[
+	"room0000.png"
+	],
+	[]
 ],
-[]
-],
-"page7":[
-[],
-["PLAY","theme1.wav","sfx1.wav"],
-[
-"warehouse0001.png",
-"warehouse0002.png",
-"warehouse0003.png",
-"warehouse0004.png",
-"warehouse0005.png",
-"warehouse0006.png",
-"warehouse0007.png",
-"warehouse0008.png",
-"warehouse0009.png",
-"warehouse0010.png",
-"warehouse0011.png",
-"warehouse0012.png"
-],
-[]
+	"page7":[
+	[],
+	["","","sfx1.wav"],
+	[],
+	[]
 ],
   "page8":[
-    ["","there it was. \n utensils sliding in drawers, shifting feet, \n there was no doubt: \n someone was in the house",1],
+    ["","there it was. \n utensils sliding in drawers, shifting feet, \n there was no doubt: \n someone was in the house"],
     ["PLAY","theme1.wav","sfx1.wav"],
     ["black.png"],
     []
 ],
   "page9":[
-    ["","Chills run down his spine. His breathing slips into sharp arrhymic inhales and his stomach sinks."],
+    ["","Chills run down his spine. His breathing slips into sharp arrhymic inhales and his stomach sinks.  Then his first clear thought: \n I'll just lay here and let them get me.",0],
     [],
-    ["black.png"],
+    ["white.png"],
     []
 ],
-  "page10":[
-    ["","Instinct finally kicks in and he reaches for the rifle by his bedstand...",0],
+"page10":[
+  ["","",0],
+  [],
+  ["white.png"],
+  []
+],
+  "page11":[
+    ["","Instinct finally kicks in and he reaches for the rifle by his bedstand...",1],
     [],
     [
-    "warehouse0001.png",
-    "warehouse0002.png",
-    "warehouse0003.png",
-    "warehouse0004.png",
-    "warehouse0005.png",
-    "warehouse0006.png",
-    "warehouse0007.png",
-    "warehouse0008.png",
-    "warehouse0009.png",
-    "warehouse0010.png",
-    "warehouse0011.png",
-    "warehouse0012.png"
+    "pend0000.png",
+    "pend0000.png",
+    "pend0001.png",
+    "pend0001.png",
+    "pend0002.png",
+    "pend0002.png",
+    "pend0003.png",
+    "pend0003.png",
+    "pend0004.png",
+    "pend0004.png",
+    "pend0005.png",
+    "pend0005.png",
+    "pend0006.png",
+    "pend0006.png",
+    "pend0007.png",
+    "pend0007.png"
   ],
     []
 ],
-  "page11":[
-    ["","whoops, no rifle. His fingers pass desperately through empty air.",1],
+  "page12":[
+    ["","But his fingers pass desperately through empty air."],
     [],
     ["black.png"],
     []
 ],
-  "page12":[
+  "page13":[
+    ["","\"shit\"",1],
+    [],
+    ["black.png"],
+    []
+],
+  "page14":[
+    ["","\"Mmm brilliant, I'm dead. Now unless I find a gun, I'm dead.\"",1],
+    [],
+    ["black.png"],
+    []
+],
+  "page15":[
+    ["","",1],
+    [],
+    ["room0000.png"],
+    []
+],
+  "page16":[
+    ["","No blanket and already dressed, he sits up making as little noise as possible. Moving slowly but unwaveringly, without hesitation",1],
+    [],
+    ["black.png"],
+    []
+],
+  "page17":[
+    ["","opendoor png",1],
+    [],
+    ["black.png"],
+    []
+],
+  "page18":[
+    ["","connected door png",1],
+    [],
+    ["black.png"],
+    []
+],
+  "page19":[
+    ["","window to backyard from inside png",1],
+    [],
+    ["black.png"],
+    []
+],
+  "page20":[
+    ["","backyard outside png",1],
+    [],
+    ["black.png"],
+    []
+],
+  "page21":[
+    ["","looking down from the ceiling png, fan turning",1],
+    [],
+    ["black.png"],
+    []
+],
+  "page22":[
+    ["","His heart is pounding in his chest. The ambient sound of the room taking over all attention, anticipating the next morsel of information. He was alone. The only signs of life: the presence downstairs, and the wavering light spilling into the room from under a closed doorway.",1],
+    [],
+    ["black.png"],
+    []
+],
+  "page23":[
+    ["","\"This is the end. I'm going to expire as soon as I leave this room. Lying in wait for me is something I cannot stop. What else could be happening? How can there be an enemy, here, and they haven't now come for me? I was left undisturbed even though... ...even though I was left unprotected.\"",1],
+    [],
+    ["black.png"],
+    []
+],
+  "page24":[
+    ["","",1],
+    [],
+    ["black.png"],
+    []
+],
+  "page25":[
+    ["","\"where is everyone else?\"",1],
+    [],
+    ["black.png"],
+    []
+],
+  "page26":[
+    ["","\"...\"",1],
+    [],
+    ["black.png"],
+    []
+],
+  "page27":[
+    ["","Cortisol. Norepinephrine. He inhaled. His ears grew hot and his pulse quickened. What he had woken up to, much worse than any cold desert morning in the past year, worse, hypothetically, than fire, was an access breach of their target location with his entire team unaccounted for and signs of enemy contact. \n Strange signs, anyway.",1],
+    [],
+    ["black.png"],
+    []
+],
+  "page28":[
+    ["","\"Am I overreacting? Maybe that's just them downstairs, messing with some equipment...\"",1],
+    [],
+    ["black.png"],
+    []
+],
+  "page29":[
+    ["","He tried to approach the situation with some calm reason.",1],
+    [],
+    ["black.png"],
+    []
+],
+  "page30":[
+    ["","And the light... \n ...reflecting off of the floor, it was lacking any of the artifacts of LED, or halogen, or anything familiar to him.",1],
+    [],
+    ["black.png"],
+    []
+],
+  "page31":[
+    ["","Candlefire was a close comparison for the ephemeral flicker and omnidirectional point source... \n ...but no warm flame would have this icey blue hue, the eerie stellar glow.",1],
+    [],
+    ["black.png"],
+    []
+],
+  "page32":[
+    ["","It was rich with color like a laser but seemed almost natural, like sunlight.",1],
+    [],
+    ["black.png"],
+    []
+],
+  "page33":[
+    ["","Putting the light aside, the only thing he can try to understand is where the others went. If the operation went sideways sometime before he came to, chances are, they'd all be dead. It would explain the silence, why he woke up alone, the unfamiliar shifting downstairs... but...",1],
+    [],
+    ["black.png"],
+    []
+],
+  "page34":[
+    ["","None of the alarms we set got triggered, and I can only hear one person down there, and they haven't come for me yet.",1],
+    [],
+    ["black.png"],
+    []
+],
+  "page35":[
+    ["","His head spins with unsettled incongruities but he pulls himself to task under a single, finally, predatory, thought: he still has the element of surprise.",1],
+    [],
+    ["black.png"],
+    []
+],
+  "page36":[
+    ["","beginning to crawl png Text: He can't afford to make a sound.",1],
+    [],
+    ["black.png"],
+    []
+],
+  "page37":[
+    ["","The low carpet pushes on wood floorboards. Effects of the weight are sent to the edges of the room and up the walls causing light creaks and shudders.",1],
+    [],
+    ["black.png"],
+    []
+],
+  "page38":[
+    ["","Left hand, right foot, right hand, left foot. With deliberate and exact motions of trained limbs, he crawls across the floor. His entire range of sensory perception muffles, zeroing into his sense of balance. Guiding his body weight gingerly along his path, smoothly almost weightlessly, rolling off of palms and the balls of his feet, rolling off of elbows and knees.",1],
+    [],
+    ["black.png"],
+    []
+],
+  "page39":[
+    ["","accidentally breaks something + shots of things around the room that are moving",1],
+    [],
+    ["black.png"],
+    []
+],
+  "page40":[
+    ["","It must be audible from downstairs. But the noises from the hall continue uninterrupted.",1],
+    [],
+    ["black.png"],
+    []
+],
+  "page41":[
+    ["","Old man must be deaf... If this is indeed the old man, and if he came back alone, but that's impossible.",1],
+    [],
+    ["black.png"],
+    []
+],
+  "page42":[
+    ["","Maybe this is a common burglar then.",1],
+    [],
+    ["black.png"],
+    []
+],
+  "page43":[
+    ["","But he hasn't triggered any alarms. Did we forget to rearm the sensors? No.... our guy definitely did that after we all entered.",1],
+    [],
+    ["black.png"],
+    []
+],
+  "page44":[
+    ["","Was the back gate left open? \n Maybe it was just that the back gate was left open and a random burglar walked in - \n a deaf one, one that moved around as if no one was home, as if they expected no one to be home...",1],
+    [],
+    ["black.png"],
+    []
+],
+  "page45":[
+    ["","That's weird. It's too unlikely. Something else is going on here.",1],
+    [],
+    ["black.png"],
+    []
+],
+  "page46":[
+    ["","Reaches armoire",1],
+    [],
+    ["black.png"],
+    []
+],
+  "page47":[
+    ["","Colt Single Action Army, otherwise known as the Peacemaker, chambered for the .45 colt round. Not the largest bullet, but not the smallest either. \n It was a sudden, weird slice of Americana given the circumstance. The limited amount of moonlight in the room illuminated the form that invites imagery of times just after the American Civil War, a new federal military force, standardized, general issue, under one flag. Equipped by the Rough Riders, modified for use in the Philippines. The cowboy sidearm to the gun that won the West. In service until 1945. This motherfucker was like a real antique.",1],
+    [],
+    ["black.png"],
+    []
+],
+  "page48":[
+    ["","He pushed the loading gate aside and inched the cylinder around, peering into every chamber. Five empty holes and only one round. Macabre.",1],
+    [],
+    ["black.png"],
+    []
+],
+  "page49":[
+    ["","\"An unfamiliar firearm, a single bullet, and any number of possible failures without a chance for a test fire. My life is in the hands of American manufacturing at the turn of the 20th century.\"",1],
+    [],
+    ["black.png"],
+    []
+],
+  "page50":[
+    ["","Upstairs was clear. It's looking like everyone left but one member, leaving me to nap in a bedroom alone. None of the equipment, except the one bag other than my own, was left behind. The perimeter alarms and camera appear to be where we left them, disturbingly however they were all disabled. They should have only been controlled remotely through our phones but even my phone had died.",1],
+    [],
+    ["black.png"],
+    []
+],
+  "page51":[
+    ["","All the light switches I tried were dead. There wasn't a spark of electricity in the house.",1],
+    [],
+    ["black.png"],
+    []
+],
+  "page52":[
+    ["","The only thing that seemed to live was the continuous light phenomenon coming from downstairs. Now that he is observing more closely he is more deeply disturbed. Strange light bouncing around reflecting off of mirrors and glass and metallic objects around the house.",1],
+    [],
+    ["black.png"],
+    []
+],
+  "page53":[
+    ["","It was an excessive display of luxury, especially at the entrance to the whole house. It implied a sort of obvious attempt at intimidating guests without much concern for the security of the pieces.",1],
+    [],
+    ["black.png"],
+    []
+],
+  "page54":[
+    ["","Perhaps because in the event of a robbery or invasion, the house has within it something else many times more important.",1],
+    [],
+    ["black.png"],
+    []
+],
+  "page55":[
+    ["","...",1],
+    [],
+    ["black.png"],
+    []
+],
+  "page56":[
+    ["","A gap in the treasures lining the walls of the foyer presents a short hallway. It opens up into a large, indoor, high-ceilinged, skylight atrium: an oblong central space that connects the main living spaces. Kitchen, dining, living, and porch rooms accessible in various cardinal directions. Each room a spheroid dome (hemisphere) of variable size, they split off from the atrium via entry ways marked by arches and sheer curtains. The walls were white like a temple and had the earthy textures of adobe. The modern style and experiment layout clashes with innumerable anachronistic decorative architectural elements. Marble tiles, pillars, columns and crown moulding, banisters, chandeliers, pediments, vaulted domes and buttresses. Cloth drapes hanging from ceilings, billowing slightly to some light draft breathing life into the house. Large mirrors and glass panels everywhere, in gold and silver, ornate and modernist. In the darkness, they were mostly hidden, sometimes adding illusory depth to corners and surfaces, sometimes glinting gently in the eerie light.",1],
+    [],
+    ["black.png"],
+    []
+],
+  "page57":[
+    ["","Line of sight from atrium entrance, through kitchen, porch door, and out onto the lawn where a fountain spurt into the moonlight a sparkling liquid umbrella.",1],
+    [],
+    ["black.png"],
+    []
+],
+  "page58":[
+    ["","Its location was appropriate: On a hill, obscured on all sides by trees, and far from the main road, tucked away in a sparse rural housing community, easily missed from the highways. Two hairpins turns along the uphill drive allow for direct sight of anyone approaching the house from the main road. No gate but cameras were located atop lamp posts at the entrance of the property.",1],
+    [],
+    ["black.png"],
+    []
+],
+  "page59":[
+    ["","No more or less defensive than he expected. The house interior was quite lacking in defensive structure in the event of a firefight or invaders. No cover to crouch behind in the foyer, or the atrium, or any of the other rooms he could see. He could lean next to one of the many pillars to avoid sight but structurally didn't look like it could withstand a single bullet with moderate stopping power. The kitchen and garage seemed to be a different story. The marble countertop appeared to be solid stone below a certain height and partial walls squeezed off certain sections of the floor plan, allowing for cover. Remembering his prior inspection, the garage, located just beyond a door leading out of the kitchen, had various fuse boxes, water heaters, and equipment to hide behind.",1],
+    [],
+    ["black.png"],
+    []
+],
+  "page60":[
+    ["","The lights continue to dance with an almost humanoid shudder, as if some were holding a flashlight and the long shadows cast across the hall were broadcasting every tremor, waver, and uncertain motion. One set of shadows remains still: it was the familiar light of a white LED's luminosity and color coming from the kitchen. Not a ceiling light or a lamp but some appliance, perhaps...",1],
+    [],
+    ["black.png"],
+    []
+],
+  "page61":[
+    ["","As he passes through the atrium, the sight into the kitchen becomes wider. Revolver raised, he approaches each corner with caution.",1],
+    [],
+    ["black.png"],
+    []
+],
+  "page62":[
     ["","should not show",1],
     [],
     ["black.png"],
