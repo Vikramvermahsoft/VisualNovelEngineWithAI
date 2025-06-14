@@ -357,7 +357,7 @@
 ,
 "page16":[
   [],
-  ["","", 0],
+  ["",""],
   [
     "black.png"
   ],
@@ -405,6 +405,7 @@
   []
 ]
 ,
+"page22":[["",""],[],["white.png"],[]],
 "page23":[
   ["","The body settles but the mind stews. Confusion lay ahead like a storm off the coast before landfall.",0],
   ["PLAY", "audio2.mp3"],
