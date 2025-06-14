@@ -1,0 +1,324 @@
+[
+  [
+    [
+      [""," ...?",1],
+      ["PLAY","theme13.wav", "sfx1.wav"],
+      ["black.png"],
+      []
+    ],
+    [
+      ["","\"Huh?\""],
+      [],
+      ["black.png"],
+      []
+    ]
+  ],
+  [
+    [
+      ["",""],
+      ["","","sfx1.wav"],
+      ["black.png"],
+      []
+    ],
+    [
+      ["","From depths of sleep he is fetched, dragged through muddy half-consciousness, suddenly, breaking forth into a firmament of icy fear. \n His skin electric under his clothes, he comes to full wakefulness in his body, \n his toe twitching in its boot.",0],
+      [],
+      ["ceiling0000.png"],
+      []
+    ]
+  ],
+  [
+    [
+      ["",""],
+      [],
+      ["ceiling0000.png"],
+      []
+    ],
+    [
+      ["","He keeps his eyes open and listens",1],
+      [],
+      [],
+      []
+    ]
+  ],
+  [
+    [
+      ["",""],
+      ["PLAY","audio1.mp3"],
+      ["room0000.png"],
+      []
+    ],
+    [
+      [],
+      ["","","sfx1.wav"],
+      [],
+      []
+    ]
+  ],
+  [
+    [
+      ["","there it was. \n utensils sliding in drawers, shifting feet, \n there was no doubt: \n someone was in the house"],
+      ["PLAY","theme1.wav","sfx1.wav"],
+      ["black.png"],
+      []
+    ],
+    [
+      ["","Chills run down his spine. His breathing slips into sharp arrhythmic inhales and his stomach sinks. Then his first clear thought: \n I'll just lay here and let them get me.",0],
+      [],
+      ["white.png"],
+      []
+    ]
+  ],
+  [
+    [
+      ["","",0],
+      [],
+      ["white.png"],
+      []
+    ],
+    [
+      ["","Instinct finally kicks in and he reaches for the rifle by his bedstand...",1],
+      [],
+      ["pend0000.png","pend0000.png","pend0001.png","pend0001.png","pend0002.png","pend0002.png","pend0003.png","pend0003.png","pend0004.png","pend0004.png","pend0005.png","pend0005.png","pend0006.png","pend0006.png","pend0007.png","pend0007.png"],
+      []
+    ]
+  ],
+  [
+    [
+      ["","But his fingers pass desperately through empty air."],
+      [],
+      ["black.png"],
+      []
+    ],
+    [
+      ["","\"shit\"",1],
+      [],
+      ["black.png"],
+      []
+    ]
+  ],
+  [
+    [
+      ["","\"Mmm brilliant, I'm dead. Now unless I find a gun, I'm dead.\"",1],
+      [],
+      ["black.png"],
+      []
+    ],
+    [
+      ["","",1],
+      [],
+      ["room0000.png"],
+      []
+    ]
+  ],
+  [
+    [
+      ["","No blanket and already dressed, he sits up making as little noise as possible. Moving slowly but unwaveringly, without hesitation",1],
+      [],
+      ["black.png"],
+      []
+    ],
+    [
+      ["","opendoor png",1],
+      [],
+      ["roomperspectiveinvert0000.png"],
+      []
+    ]
+  ],
+  [
+    [
+      ["","connected door png",1],
+      [],
+      ["doorperspective0000.png"],
+      []
+    ],
+    [
+      ["","window to backyard from inside png",1],
+      [],
+      ["window0000.png"],
+      []
+    ]
+  ],
+  [
+    [
+      ["","backyard outside png",1],
+      [],
+      ["outsidewindow0000.png"],
+      []
+    ],
+    [
+      ["","looking down from the ceiling png, fan turning",1],
+      [],
+      ["black.png"],
+      []
+    ]
+  ],
+  [
+    [
+      ["","His heart is pounding in his chest. The ambient sound of the room taking over all attention, anticipating the next morsel of information. He was alone. The only signs of life: the presence downstairs, and the wavering light spilling into the room from under a closed doorway.",1],
+      [],
+      ["black.png"],
+      []
+    ],
+    [
+      ["","\"This is the end. I'm going to expire as soon as I leave this room. Lying in wait for me is something I cannot stop. What else could be happening? How can there be an enemy, here, and they haven't now come for me? I was left undisturbed even though... ...even though I was left unprotected.\"",1],
+      [],
+      ["black.png"],
+      []
+    ]
+  ],
+  [
+    [
+      ["","",1],
+      [],
+      ["black.png"],
+      []
+    ],
+    [
+      ["","\"where is everyone else?\"",1],
+      [],
+      ["black.png"],
+      []
+    ]
+  ],
+  [
+    [
+      ["","\"...\"",1],
+      [],
+      ["black.png"],
+      []
+    ],
+    [
+      ["","Cortisol. Norepinephrine. He inhaled. His ears grew hot and his pulse quickened. What he had woken up to, much worse than any cold desert morning in the past year, worse, hypothetically, than fire, was an access breach of their target location with his entire team unaccounted for and signs of enemy contact. \n Strange signs, anyway.",1],
+      [],
+      ["black.png"],
+      []
+    ]
+  ],
+  [
+    [
+      ["","\"Am I overreacting? Maybe that's just them downstairs, messing with some equipment...\"",1],
+      [],
+      ["black.png"],
+      []
+    ],
+    [
+      ["","He tried to approach the situation with some calm reason.",1],
+      [],
+      ["black.png"],
+      []
+    ]
+  ],
+  [
+    [
+      ["","And the light... \n ...reflecting off of the floor, it was lacking any of the artifacts of LED, or halogen, or anything familiar to him.",1],
+      [],
+      ["black.png"],
+      []
+    ],
+    [
+      ["","Candlefire was a close comparison for the ephemeral flicker and omnidirectional point source... \n ...but no warm flame would have this icy blue hue, the eerie stellar glow.",1],
+      [],
+      ["black.png"],
+      []
+    ]
+  ],
+  [
+    [
+      ["","It was rich with color like a laser but seemed almost natural, like sunlight.",1],
+      [],
+      ["black.png"],
+      []
+    ],
+    [
+      ["","Putting the light aside, the only thing he can try to understand is where the others went. If the operation went sideways sometime before he came to, chances are, they'd all be dead. It would explain the silence, why he woke up alone, the unfamiliar shifting downstairs... but...",1],
+      [],
+      ["black.png"],
+      []
+    ]
+  ],
+  [
+    [
+      ["","None of the alarms we set got triggered, and I can only hear one person down there, and they haven't come for me yet.",1],
+      [],
+      ["black.png"],
+      []
+    ],
+    [
+      ["","His head spins with unsettled incongruities but he pulls himself to task under a single, finally, predatory, thought: he still has the element of surprise.",1],
+      [],
+      ["black.png"],
+      []
+    ]
+  ],
+  [
+    [
+      ["","beginning to crawl png Text: He can't afford to make a sound.",1],
+      [],
+      ["black.png"],
+      []
+    ],
+    [
+      ["","The low carpet pushes on wood floorboards. Effects of the weight are sent to the edges of the room and up the walls causing light creaks and shudders.",1],
+      [],
+      ["black.png"],
+      []
+    ]
+  ],
+  [
+    [
+      ["","Left hand, right foot, right hand, left foot. With deliberate and exact motions of trained limbs, he crawls across the floor. His entire range of sensory perception muffles, zeroing into his sense of balance. Guiding his body weight gingerly along his path, smoothly almost weightlessly, rolling off of palms and the balls of his feet, rolling off of elbows and knees.",1],
+      [],
+      ["black.png"],
+      []
+    ],
+    [
+      ["","accidentally breaks something + shots of things around the room that are moving",1],
+      [],
+      ["black.png"],
+      []
+    ]
+  ],
+  [
+    [
+      ["","It must be audible from downstairs. But the noises from the hall continue uninterrupted.",1],
+      [],
+      ["black.png"],
+      []
+    ],
+    [
+      ["","Old man must be deaf... If this is indeed the old man, and if he came back alone, but that's impossible.",1],
+      [],
+      ["black.png"],
+      []
+    ]
+  ],
+  [
+    [
+      ["","Maybe this is a common burglar then.",1],
+      [],
+      ["black.png"],
+      []
+    ],
+    [
+      ["","But he hasn't triggered any alarms. Did we forget to rearm the sensors? No.... our guy definitely did that after we all entered.",1],
+      [],
+      ["black.png"],
+      []
+    ]
+  ],
+  [
+    [
+      ["","Was the back gate left open? \n Maybe it was just that the back gate was left open and a random burglar walked in - \n a deaf one, one that moved around as if no one was home, a very random...",1],
+      [],
+      ["black.png"],
+      []
+    ],
+    [
+      ["","No.",1],
+      [],
+      ["black.png"],
+      []
+    ]
+  ]
+]

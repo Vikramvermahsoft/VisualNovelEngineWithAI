@@ -1,0 +1,199 @@
+[
+        {
+		"page0":[
+      ["","{bold True}blah blah blahhh", 1],
+			["PLAY","audio1.mp3", ""],
+			[
+        "000000.png"
+
+			],
+      [
+      ]
+		]
+		,
+    "page1":[
+      ["","\"Now relax - your feet up to your knees, lower back, then up to your chest\"",1],
+			[],
+      [
+
+
+        "000100.png"
+			],
+      [
+      ]
+		]
+		,
+    "page2":[
+        ["","I'm walking along a barn.",0],
+        [],
+        [
+          "000200.png"
+
+    ],
+      [
+
+      ]
+
+    ]
+    ,
+    "page3":[
+        ["",""],
+        ["PLAY","audio2.mp3"],
+        [
+          "000300.png"
+      ],
+      [
+        "black.png","right"
+      ]
+
+    ]
+    ,
+    "page4":[
+        ["",""],
+        [],
+        [
+          "000400.png"
+      ],
+      [
+
+      ]
+
+    ]
+    ,
+    "page5":[
+        ["",""],
+        ["STOP","theme0.wav"],
+        [
+        "000500.png"
+      ],
+      [
+
+      ]
+
+    ]
+		,
+		"page6":[
+      ["","",1],
+      [],
+      ["000600.png"],
+      []
+  ]
+  ,
+
+  "page7":[
+      ["",""],
+      ["STOP","theme0.wav"],
+      [
+      "000700.png"
+    ],
+    [
+
+    ]
+
+  ],
+
+  "page8":[
+      ["",""],
+      ["STOP","theme0.wav"],
+      [
+      "000800.png"
+    ],
+    [
+
+    ]
+
+  ],
+
+  "page9":[
+      ["",""],
+      ["STOP","theme0.wav"],
+      [
+      "000900.png"
+    ],
+    [
+
+    ]
+
+  ],
+
+  "page10":[
+      ["",""],
+      ["STOP","theme0.wav"],
+      [
+      "001000.png"
+    ],
+    [
+
+    ]
+
+  ],
+
+  "page11":[
+      ["","This is the end of chapter 1"],
+      ["STOP","theme0.wav"],
+      [
+      "001100.png"
+    ],
+    [
+
+    ]
+
+  ],
+  "page12":[
+    ["","should not show",1],
+    [],
+    ["000600.png"],
+    []
+]
+
+},
+{
+		"page0":[
+      ["","Test lettering",0],
+      ["",""],
+      [
+        "010000.png"
+      ],
+      [
+
+      ]
+  ]
+		,
+		"page1":[
+      ["","test text", 1],
+      ["",""],
+      [
+        "010100.png"
+      ],
+      [
+        "character1_looking.png","right"
+      ]
+  ]
+		,
+    "page2":[
+      ["","Some more inverted text"],
+      ["",""],
+      [
+        "010200.png"
+      ],
+      []
+  ]
+    ,
+
+    "page3":[
+      ["","Even more inverted text",1],
+      ["",""],
+      [
+        "010300.png"
+      ],
+      []
+  ]
+  ,
+		"page4":[
+    ["","", 0],
+    [],
+    [],
+    []
+  ]
+	}
+]
