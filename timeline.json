@@ -1065,7 +1065,7 @@
   "page60": [["", "\"I bet you can still hear the train. You're not entirely asleep, I can tell. You're just doing that annoying thing you do\""], [], ["024000.png"], []],
   "page61": [["", ""], [], ["black.png"], []],
   "page62": [["", ""], [], ["white.png"], []],
-  "page63": [["", "\"Come on, I'm asking all nice here, let us back into your world...\""], [], [
+  "page63": [["", "\"Come on, I'm asking all nice here, let us back into your world...\"", 0], [], [
   "white.png", "white.png",
   "024100.png", "024100.png",
   "024101.png", "024101.png",
@@ -1132,7 +1132,7 @@
 ],
 "page1": [["", "She gets back from the cafe car. Places a water down with him, holds another. Swift and straight on her heels, her precise, grandiloquent, polyrhythmic footsteps build to a rapid tiptoe at the seats before sliding in with feigned oscitant elation into a relaxed heap.",1], [], ["black.png"], []],
   "page2": [["", "One hazel eye gleams before him from under the hoodie, piercing, eternal, and alive with complicated emotion, watching him, Argus-eyed, mentally peeling his skin back and gazing upon the viscera. He could tell when he was being studied, it was like being shined on by a flashlight, no, a floodlight, but the biggest one you could think of, that light was subtle and enveloped everything, but still he could feel it when its center was on him."], [], ["black.png"], []],
-  "page3": [["", "Do you play games?"], ["STOP","theme.wav"], ["black.png"], []],
+  "page3": [["", "Do you play games?"], ["STOP","theme3.mp3"], ["black.png"], []],
   "page4": [["", "She holds up a deck of cards."], ["PLAY", "theme9.mp3"], ["black.png"], []],
   "page5": [["", "Flicks it at him, he catches it perfectly, its empty"], [], ["black.png"], []],
   "page6": [["", "She smiles and fans out the entire deck"], [], ["black.png"], []],
