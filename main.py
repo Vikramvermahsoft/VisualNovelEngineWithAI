@@ -576,7 +576,35 @@ class Reader():
             #current_pic = pyglet.image.load('_internal/resources/frames/'+frames[count-1])
             #print(f"{current_pic} = CURRENT PIC")
             #pic = image.load(current_pic)
-            current_pic.blit(0,0)
+
+            # height, width = 800, 600
+            #
+            # current_pic.scale = min(current_pic.height, height)/max(current_pic.height, height), max(min(width, current_pic.width)/max(width, current_pic.width))
+            #
+            # current_pic.width = width
+            # current_pic.height = height
+            # current_pic.texture.width = width
+            # current_pic.texture.height = height
+            # current_pic.blit(0,0)
+
+            target_width, target_height = 1786, 1005
+
+            # Create sprite
+            sprite = pyglet.sprite.Sprite(current_pic)
+
+            # Compute uniform scale (fit to smaller dimension)
+            scale = min(target_width / sprite.width, target_height / sprite.height)
+
+            # Apply uniform scale
+            sprite.scale = scale
+
+            # Optional: center it
+            sprite.x = (target_width - sprite.width * scale) // 2
+            sprite.y = (target_height - sprite.height * scale) // 2
+
+            # Draw
+            sprite.draw()
+
             #pass
         #Test reaction images below
         #test_pic = pyglet.image.load('picture.png')
@@ -773,8 +801,8 @@ if __name__ == '__main__':
 
     clock = pyglet.clock
     window = Window(style=pyglet.window.Window.WINDOW_STYLE_BORDERLESS, vsync=False)
-    #window.set_size(1786, 1086)
-    window.set_size(1920,1080)
+    window.set_size(1786, 1086)
+    #window.set_size(1920,1080)
     if window.fullscreen == 1:
         window.set_fullscreen(True)
     if window.fullscreen == 0:
