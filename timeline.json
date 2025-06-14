@@ -2,7 +2,7 @@
         {
 		"page0":[
       [],
-			["PLAY","audio1.mp3", ""],
+			["PLAY", "theme3.mp3"],
 			[
         "000000.png"
 
@@ -38,7 +38,7 @@
     ,
     "page3":[
         ["",""],
-        ["PLAY","audio2.mp3"],
+        [],
         [
           "000300.png"
       ],
@@ -62,7 +62,7 @@
     ,
     "page5":[
         ["",""],
-        ["STOP","theme0.wav"],
+        [],
         [
         "000500.png"
       ],
@@ -82,7 +82,7 @@
 
   "page7":[
       ["",""],
-      ["STOP","theme0.wav"],
+      [],
       [
       "000700.png"
     ],
@@ -94,7 +94,7 @@
 
   "page8":[
       ["",""],
-      ["STOP","theme0.wav"],
+      [],
       [
       "000800.png"
     ],
@@ -106,7 +106,7 @@
 
   "page9":[
       ["",""],
-      ["STOP","theme0.wav"],
+      [],
       [
       "000900.png"
     ],
@@ -118,7 +118,7 @@
 
   "page10":[
       ["",""],
-      ["STOP","theme0.wav"],
+      [],
       [
       "001000.png"
     ],
@@ -130,7 +130,7 @@
 
   "page11":[
       ["",""],
-      ["STOP","theme0.wav"],
+      [],
       [
       "001100.png"
     ],
@@ -141,7 +141,7 @@
   ],
   "page12":[
     ["","should not show",1],
-    [],
+    ["STOP", "theme3.mp3"],
     ["000600.png"],
     []
 ]
@@ -150,7 +150,7 @@
 {
 		"page0":[
       ["","",0],
-      ["",""],
+      ["PLAY","audio1.mp3"],
       [
         "010000.png"
       ],
@@ -366,7 +366,7 @@
 ,
 "page17":[
   ["","...he might end up having an episode. ", 1],
-  [],
+  ["STOP", "audio1.mp3"],
   [
     "black.png"
   ],
@@ -407,7 +407,7 @@
 ,
 "page23":[
   ["","The body settles but the mind stews. Confusion lay ahead like a storm off the coast before landfall.",0],
-  [],
+  ["PLAY", "audio2.mp3"],
   [
     "white.png"
 
@@ -597,14 +597,14 @@
 ],
 "page49":[
   ["", "But we've already come so far. If there was a threat on board they would have had the opportunity to execute their plot with no interference from the outside world over the course of this entire journey. They haven't made a single move. But even if they did, remaining undetected only came down to a couple things, since they probably wouldn't know who or what they were looking for."],
-  [],
+  ["STOP", "audio2.mp3"],
     ["black.png"]
 ,
   []
 ],
 "page50":[
   ["", "He was overthinking it - every was fine right now. He's made it on the train and he's heading forward, into the future, into his future.", 1],
-  [],
+  ["PLAY", "theme1.wav"],
     ["020500.png"]
 ,
   []
@@ -809,7 +809,7 @@
 ],
 "page11":[
   ["", "\"We'll leave you that to think about...\"", 0],
-  [],
+  ["STOP","theme1.wav"],
   ["020500.png"]
 ,
   []
@@ -1100,7 +1100,7 @@
 {
   "page0":[
     ["","",0],
-    ["",""],
+    ["PLAY","theme3.mp3"],
     [
   "030000.png", "030000.png",
   "030001.png", "030001.png",
@@ -1132,8 +1132,8 @@
 ],
 "page1": [["", "She gets back from the cafe car. Places a water down with him, holds another. Swift and straight on her heels, her precise, grandiloquent, polyrhythmic footsteps build to a rapid tiptoe at the seats before sliding in with feigned oscitant elation into a relaxed heap.",1], [], ["black.png"], []],
   "page2": [["", "One hazel eye gleams before him from under the hoodie, piercing, eternal, and alive with complicated emotion, watching him, Argus-eyed, mentally peeling his skin back and gazing upon the viscera. He could tell when he was being studied, it was like being shined on by a flashlight, no, a floodlight, but the biggest one you could think of, that light was subtle and enveloped everything, but still he could feel it when its center was on him."], [], ["black.png"], []],
-  "page3": [["", "Do you play games?"], [], ["black.png"], []],
-  "page4": [["", "She holds up a deck of cards."], [], ["black.png"], []],
+  "page3": [["", "Do you play games?"], ["STOP","theme.wav"], ["black.png"], []],
+  "page4": [["", "She holds up a deck of cards."], ["PLAY", "theme9.mp3"], ["black.png"], []],
   "page5": [["", "Flicks it at him, he catches it perfectly, its empty"], [], ["black.png"], []],
   "page6": [["", "She smiles and fans out the entire deck"], [], ["black.png"], []],
   "page7": [["", "\"Did you know that if you add up all the numbers with aces as ones and facecards going up to 13 you get... 364? Wait...\""], [], ["black.png"], []],
