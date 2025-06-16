@@ -585,32 +585,32 @@ class Reader():
             # current_pic.height = height
             # current_pic.texture.width = width
             # current_pic.texture.height = height
-            #current_pic.blit(0,0)
+            current_pic.blit(0,0)
 
-            target_width, target_height = 1786, 1005
-
-            # Create sprite
-            sprite = pyglet.sprite.Sprite(current_pic)
-            draw_objects = [sprite]
-
-            # Compute uniform scale (fit to smaller dimension)
-            scale = min(target_width / sprite.width, target_height / sprite.height)
-
-            # Apply uniform scale
-            sprite.scale = scale
-
-            # Optional: center it
-            #sprite.x = (target_width - sprite.width * scale) // 2
-            #sprite.y = (target_height - sprite.height * scale) // 2
-
-            # Draw
-            sprite.draw()
-            #global sprite
-            if sprite in draw_objects:
-                print('deleting')
-                sprite.delete()
-                draw_objects.remove(sprite)
-
+            # target_width, target_height = 1920, 1080
+            #
+            # # Create sprite
+            # sprite = pyglet.sprite.Sprite(current_pic)
+            # draw_objects = [sprite]
+            #
+            # # Compute uniform scale (fit to smaller dimension)
+            # scale = min(target_width / sprite.width, target_height / sprite.height)
+            #
+            # # Apply uniform scale
+            # sprite.scale = scale
+            #
+            # # Optional: center it
+            # #sprite.x = (target_width - sprite.width * scale) // 2
+            # #sprite.y = (target_height - sprite.height * scale) // 2
+            #
+            # # Draw
+            # sprite.draw()
+            # #global sprite
+            # if sprite in draw_objects:
+            #     print('deleting')
+            #     sprite.delete()
+            #     draw_objects.remove(sprite)
+            #
 
             #pass
         #Test reaction images below
@@ -808,8 +808,8 @@ if __name__ == '__main__':
 
     clock = pyglet.clock
     window = Window(style=pyglet.window.Window.WINDOW_STYLE_BORDERLESS, vsync=False)
-    window.set_size(1786, 1086)
-    #window.set_size(1920,1080)
+    #window.set_size(1786, 1086)
+    window.set_size(1920,1080)
     if window.fullscreen == 1:
         window.set_fullscreen(True)
     if window.fullscreen == 0:
