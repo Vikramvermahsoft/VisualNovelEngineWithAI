@@ -7,8 +7,8 @@
         "000000.png"
 
 			],
-      [
-      ]
+      []
+
 		]
 		,
     "page1":[
@@ -374,14 +374,14 @@
 ]
 ,
 "page18":[
-  ["","Now was not the time to try himself.  His window for getting rest on this ride was closing. \n He should just relax.", 1],
+  ["","Now was not the time to try himself.  His window for getting rest on this ride was closing. \n He should just relax."],
   [],
   ["black.png"],
   []
 ]
 ,
 "page19":[
-  ["","He slumped slightly, his neck still uncomfortable but now relieved, adjusting himself in his seat for maximum comfort", 1],
+  ["","He slumped slightly, his neck still uncomfortable but now relieved, adjusting himself in his seat for maximum comfort"],
   [],
   ["black.png"],
   []
@@ -646,14 +646,14 @@
 ,
   []
 ],
-"page54":[
+"page56":[
   ["", ""],
   [],
       ["012000.png", "012000.png", "012001.png", "012001.png"]
 ,
   []
 ],
-"page58":[
+"page57":[
   ["","should not show",1],
   [],
   ["000600.png"],
@@ -1155,31 +1155,8 @@
   "page22": [["", "\"Ever played war?\""], [], ["black.png"], []],
   "page23": [["", "Shakes his head. Only a bit of solitaire"], [], ["black.png"], []],
   "page24": [["", ""], [], ["black.png"], []],
-  "page25": [["", ""], [], ["black.png"], []],
-  "page26": [["", ""], [], ["black.png"], []],
-  "page27": [["", ""], [], ["black.png"], []],
-  "page28": [["", ""], [], ["black.png"], []],
-  "page29": [["", ""], [], ["black.png"], []],
-  "page30": [["", ""], [], ["black.png"], []],
-  "page31": [["", ""], [], ["black.png"], []],
-  "page32": [["", ""], [], ["black.png"], []],
-  "page33": [["", ""], [], ["black.png"], []],
-  "page34": [["", ""], [], ["black.png"], []],
-  "page35": [["", ""], [], ["black.png"], []],
-  "page36": [["", ""], [], ["black.png"], []],
-  "page37": [["", ""], [], ["black.png"], []],
-  "page38": [["", ""], [], ["black.png"], []],
-  "page39": [["", ""], [], ["black.png"], []],
-  "page40": [["", ""], [], ["black.png"], []],
-  "page41": [["", ""], [], ["black.png"], []],
-  "page42": [["", ""], [], ["black.png"], []],
-  "page43": [["", ""], [], ["black.png"], []],
-  "page44": [["", ""], [], ["black.png"], []],
-  "page45": [["", ""], [], ["black.png"], []],
-
-
-
-		"page46":[
+  "page25": [["", "To be continued"], [], ["black.png"], []],
+	"page26":[
     ["","", 0],
     [],
     [],
