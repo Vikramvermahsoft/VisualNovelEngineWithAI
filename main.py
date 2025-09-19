@@ -881,12 +881,24 @@ if __name__ == '__main__':
             #% (len(reader.menu_anim_array))
 
 
-
+            
+            '''
             if frames_length:
                 if reader.loop_bool:
                     reader.animation_counter = (reader.animation_counter + 1) % frames_length
                 else:
                     reader.animation_counter = min(reader.animation_counter + 1, frames_length - 1)
+            '''
+            if frames_length:
+                reader.animation_counter = (
+                (reader.animation_counter + 1) % frames_length
+                if reader.loop_bool
+                else min(reader.animation_counter + 1, frames_length - 1)
+                )
+                if reader.menu_anim_array:
+                    reader.menu_count = reader.animation_counter % len(reader.menu_anim_array)
+
+
             '''
             if frames_length:
                 #print('images present')
