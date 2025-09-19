@@ -864,7 +864,7 @@ if __name__ == '__main__':
         elif window.game_state == 3:
             #Game mode
             '''
-            ---Animation code below. frame of animation count is called every draw frame, if timeline->reader->image_array variable is not empty, 
+            ---Animation code below. frame of animation count is called every draw frame, if timeline->reader->image_array variable is not empty,
             and count incremented ever callback tick
             '''
             #frames = []
@@ -881,22 +881,32 @@ if __name__ == '__main__':
             #% (len(reader.menu_anim_array))
 
 
-            
-            '''
+
+
             if frames_length:
                 if reader.loop_bool:
                     reader.animation_counter = (reader.animation_counter + 1) % frames_length
                 else:
                     reader.animation_counter = min(reader.animation_counter + 1, frames_length - 1)
-            '''
-            if frames_length:
-                reader.animation_counter = (
-                (reader.animation_counter + 1) % frames_length
-                if reader.loop_bool
-                else min(reader.animation_counter + 1, frames_length - 1)
-                )
+
                 if reader.menu_anim_array:
                     reader.menu_count = reader.animation_counter % len(reader.menu_anim_array)
+
+
+                if not reader.loop_bool and reader.animation_counter >= frames_length - 1:
+                    if reader.playthrough:
+                        print("Playthrough flag detected")
+                        window.on_mouse_release(0, 0, 1, [])
+
+            # if frames_length:
+            #     reader.animation_counter = (
+            #         (reader.animation_counter + 1) % frames_length
+            #         if reader.loop_bool
+            #         else
+            #         min(reader.animation_counter + 1, frames_length - 1)
+            #     )
+            #     if reader.menu_anim_array:
+            #         reader.menu_count = reader.animation_counter % len(reader.menu_anim_array)
 
 
             '''
