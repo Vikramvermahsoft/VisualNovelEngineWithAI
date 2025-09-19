@@ -395,6 +395,7 @@ class Reader():
         self.animation_meta = {}
         self.loop_duration = 0.1
         self.loop_bool = 0
+        self.playthrough = 0
         self.timeline_meta = {}
 
         self.animation_counter = 0
@@ -466,14 +467,13 @@ class Reader():
             setattr(self, attr, value)   # assigns self.timeline_content, etc.
 
         ''' Timeline Breakdown
-
         '''
-        #timeline unpacking
+        #timeline unpackings
         speaker, content= (self.timeline_que + ["",""])[:2]
         self.speaker_content = speaker
         self.timeline_content = content
         self.loop_bool = getattr(self, "animation_meta", {}).get("loop", True)
-        print(self.loop_bool)
+        self.playthrough = getattr(self,"animation_meta", {}).get("playthrough", False)
         if len(self.timeline_que) > 2:
             self.inversion = self.timeline_que[2]
 
@@ -882,7 +882,11 @@ if __name__ == '__main__':
                         count = 0
                         reader.animation_counter = count
                     else:
+                        if reader.playthrough:
+                            print("Playthrough flag detected")
+                            window.on_mouse_release(0,0,1,[])
                         reader.animation_counter = count -1
+
                     #print('loop reset')
 
 
