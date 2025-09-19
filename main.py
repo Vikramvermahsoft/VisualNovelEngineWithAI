@@ -192,7 +192,7 @@ class Window(pyglet.window.Window):
         #print(f"{cfreq} since last draw")
         #mouse click logic; detecting mouse on every draw frame
         if self.game_state == 1:
-            return reader.menu_draw()
+            reader.menu_draw()
         if self.game_state == 2:
             if music_player.playing == True:
                 #print('AUDIO IS PLAYING')
@@ -405,7 +405,8 @@ class Reader():
         self.character_meta ={}
         self.inversion = 0
         self.specialscroll = 0
-
+        self.menu_count = 0
+        self.menu_anim_array=['010901.png','010902.png']
         #self.page_location = 720
         print('Reader created')
     def timeline_read(self,timeline_id):
@@ -468,8 +469,9 @@ class Reader():
 
         ''' Timeline Breakdown
         '''
-        #timeline unpackings
-        speaker, content= (self.timeline_que + ["",""])[:2]
+        #timeline unpacking
+        speaker, content= (self.timeline_que + ["",""])[:2] #adding empty string and truncating for safety to reduce index errors
+        #this only works for when timeline_que is completely missing, missing elements or elements in wrong order will cause errant display
         self.speaker_content = speaker
         self.timeline_content = content
         self.loop_bool = getattr(self, "animation_meta", {}).get("loop", True)
@@ -682,7 +684,13 @@ class Reader():
         #     "color": (255, 255, 255,1)
         # })
         #menu_label.set_style("Chrono Cross",color=(255,255,255,1))
+        #self.menu_anim_array=['white.png','black.png']
+        menu_pic = pyglet.image.load('resources/frames/'+self.menu_anim_array[self.menu_count])
+        menu_pic.blit(0,0)
+        print(menu_pic)
+        print('menu count =' + str(self.menu_count))
         menu_label.draw()
+
 
 class Memory():
     def __init__(self):
@@ -753,7 +761,6 @@ if __name__ == '__main__':
     pyglet.resource.path = ['resources/media','resources/frames','resources/fonts']
 
     pyglet.resource.reindex()
-
 
     clock = pyglet.clock
     window = Window(style=pyglet.window.Window.WINDOW_STYLE_BORDERLESS, vsync=False)
@@ -835,6 +842,7 @@ if __name__ == '__main__':
 
         elif window.game_state == 1:
             #Start menu
+            reader.menu_count = (reader.menu_count + 1) % (len(reader.menu_anim_array))
             if music_player.playing:
                 print('STARTING AUDIO IS PLAYING')
             if keys[key.SPACE]:
@@ -856,7 +864,8 @@ if __name__ == '__main__':
         elif window.game_state == 3:
             #Game mode
             '''
-            ---Animation code below. called every draw frame, if timeline->reader->image_array variable is not empty
+            ---Animation code below. frame of animation count is called every draw frame, if timeline->reader->image_array variable is not empty, 
+            and count incremented ever callback tick
             '''
             #frames = []
             frames = reader.animation_que
@@ -865,7 +874,32 @@ if __name__ == '__main__':
             #print(image_array)
             #print(frames)
             count = reader.animation_counter
+            '''Menu Anim code below'''
+            #reader.menu_count = (reader.animation_counter if frames_length else 0)% len(reader.menu_anim_array)
+            #reader.menu_count = (reader.menu_count + 1) % (len(reader.menu_anim_array)+1)
+            reader.menu_count = (reader.menu_count + 1)
+            #% (len(reader.menu_anim_array))
 
+
+            
+            '''
+            if frames_length:
+                if reader.loop_bool:
+                    reader.animation_counter = (reader.animation_counter + 1) % frames_length
+                else:
+                    reader.animation_counter = min(reader.animation_counter + 1, frames_length - 1)
+            '''
+            if frames_length:
+                reader.animation_counter = (
+                (reader.animation_counter + 1) % frames_length
+                if reader.loop_bool
+                else min(reader.animation_counter + 1, frames_length - 1)
+                )
+                if reader.menu_anim_array:
+                    reader.menu_count = reader.animation_counter % len(reader.menu_anim_array)
+
+
+            '''
             if frames_length:
                 #print('images present')
                 if count < frames_length:
@@ -891,6 +925,11 @@ if __name__ == '__main__':
 
 
 
+            '''
+            '''Menu Anim code below
+            #reader.menu_count = (reader.animation_counter if frames_length else 0)% len(reader.menu_anim_array)
+            reader.menu_count = (reader.menu_count + 1) % (len(reader.menu_anim_array)+1)
+            '''
     clock.schedule_interval(tick, 1/24)
 
 
