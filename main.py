@@ -305,7 +305,7 @@ class Reader:
     }
     timeline_read logic:
     fade = bool(self.audio_meta.get("FADE",False))
-    #0.1 is the default value wherever timeline.json doesn't specify one. For this case, fade effect is not enabled where unspecified
+    #False is the default value wherever timeline.json doesn't specify one. For this case, fade effect is not enabled where unspecified
     command = str(self.audio_meta.get("command",))
     command = audio_meta.get("command", "")
     # str() not needed if its always going to be a string
@@ -352,7 +352,7 @@ class Reader:
     special_scroll: int = 0
 
 
-    actually it might not be worth it to use dataclasses
+    actually it might not be worth it to use dataclasses, might be too much work and might diverge from the vision too much
     but it is worth it to reorganize the que into a dictionary for the pros of default values and easy extensibility
     converting all to dataclasses does allow default values for safety and error prevention in the json to a wild degree
 
@@ -393,6 +393,8 @@ class Reader():
         self.audio_meta = {}
         self.animation_que = {}
         self.animation_meta = {}
+        self.loop_duration = 0.1
+        self.loop_bool = 0
         self.timeline_meta = {}
 
         self.animation_counter = 0
@@ -456,7 +458,7 @@ class Reader():
         ("timeline_meta", {}),
         ("audio_meta", {}),
         ("animation_meta", {}),
-        ("character_meta", {}),
+        ("character_meta", {})
         ]
 
         for i, (attr, default) in enumerate(mapping):
@@ -470,6 +472,8 @@ class Reader():
         speaker, content= (self.timeline_que + ["",""])[:2]
         self.speaker_content = speaker
         self.timeline_content = content
+        self.loop_bool = getattr(self, "animation_meta", {}).get("loop", True)
+        print(self.loop_bool)
         if len(self.timeline_que) > 2:
             self.inversion = self.timeline_que[2]
 
@@ -666,7 +670,7 @@ class Reader():
         pass
     def menu_draw(self):
 
-        menu_label = pyglet.text.Label('Press SPACE to begin, F2 to LOAD chapter',
+        menu_label = pyglet.text.Label('Press SPACE to begin, F2 to LOAD chapter, ESC to Exit',
                       font_name='Chrono Cross',
                       font_size=36,
                       x=10, y=10,
@@ -746,7 +750,7 @@ class AnimPlayer():
 
 if __name__ == '__main__':
     #pyglet.resource.path = ['resources/media','resources/frames', 'resources/fonts']
-    pyglet.resource.path = ['resources/media','resources/frames', 'resources/fonts']
+    pyglet.resource.path = ['resources/media','resources/frames','resources/fonts']
 
     pyglet.resource.reindex()
 
@@ -874,9 +878,13 @@ if __name__ == '__main__':
 
 
                 if count >= frames_length:
-                    count = 0
-                    reader.animation_counter = count
+                    if reader.loop_bool:
+                        count = 0
+                        reader.animation_counter = count
+                    else:
+                        reader.animation_counter = count -1
                     #print('loop reset')
+
 
 
     clock.schedule_interval(tick, 1/24)
