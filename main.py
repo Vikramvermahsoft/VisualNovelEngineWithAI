@@ -24,11 +24,15 @@ class Window(pyglet.window.Window):
         print('window test')
         self.togglefullscreen = 0  # initial toggle state
         self._prev_fullscreen = self.togglefullscreen  # track previous state
+        self.skip_on = 0
 
     def on_key_press(self, KEY, MOD):
         print(KEY)
         if KEY == key.LCTRL:
-            print('LCTRL pressed')
+            print('LCTRL pressed in window')
+            print(KEY)
+            self.skip_on = 1
+            #self.on_key_press(1,[])
         if KEY == key.C:
             print('C Key Pressed')
         if KEY == 65307:
@@ -74,9 +78,17 @@ class Window(pyglet.window.Window):
                 if self.togglefullscreen == 1:
                     self.togglefullscreen = 0
                     print('Small screened')
-
-
-
+        '''
+        if KEY  == 65507:
+            #CTRL pressed
+            print('CTRL pressed, window')
+            #window.on_mouse_release(0, 0, 1, 0)
+            #reader.skip = 1
+        '''    
+    def on_key_release(self, KEY, MOD):
+        if KEY == 65507:
+            print('CTRL released')
+            self.skip_on = 0
     def on_mouse_scroll(self,x,y,scroll_x,scroll_y):
         print(scroll_y)
         if self.game_state == 3:
@@ -201,6 +213,9 @@ class Window(pyglet.window.Window):
 
 
         if self.game_state == 3:
+            #if key.LCTRL:
+            #    reader.skip = 1
+            #    print('CTRL on draw')
             r = reader #cache
             # Draw page content
             r.img_draw()
@@ -208,6 +223,10 @@ class Window(pyglet.window.Window):
             r.letter_load()
             r.label_draw(r.inversion)
             r.speaker_label_draw(r.inversion)
+            
+            if self.skip_on == 1:
+                r.skip = 1
+                print('CTRL on draw')
 
             is_latest_page = r.current_page >= r.latest_page
             at_last_page = r.current_page + 1 > r.total_pages
@@ -404,7 +423,8 @@ class Reader():
         self.character_que = {}
         self.character_meta ={}
         self.inversion = 0
-        self.specialscroll = 0
+        self.specialscroll = 0 #future function which allows for backtracking into a different timeline
+        self.skip = 0 
         self.menu_count = 0
         self.menu_anim_array=['010901.png','010902.png']
         #self.page_location = 720
@@ -879,9 +899,10 @@ if __name__ == '__main__':
             #reader.menu_count = (reader.menu_count + 1) % (len(reader.menu_anim_array)+1)
             reader.menu_count = (reader.menu_count + 1)
             #% (len(reader.menu_anim_array))
-
-
-
+            if reader.skip:
+                print('CTRL pressed, in tick')
+                window.on_mouse_release(0, 0, 1, 0)
+                reader.skip = 0
 
             if frames_length:
                 if reader.loop_bool:
@@ -891,12 +912,10 @@ if __name__ == '__main__':
 
                 if reader.menu_anim_array:
                     reader.menu_count = reader.animation_counter % len(reader.menu_anim_array)
-
-
-                if not reader.loop_bool and reader.animation_counter >= frames_length - 1:
-                    if reader.playthrough:
-                        print("Playthrough flag detected")
-                        window.on_mouse_release(0, 0, 1, [])
+                    
+                if reader.playthrough and reader.animation_counter >= frames_length -1:
+                    print("Playthrough flag detected")
+                    window.on_mouse_release(0, 0, 1, [])
 
             # if frames_length:
             #     reader.animation_counter = (
