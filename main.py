@@ -204,7 +204,8 @@ class Window(pyglet.window.Window):
         #print(f"{cfreq} since last draw")
         #mouse click logic; detecting mouse on every draw frame
         if self.game_state == 1:
-            reader.menu_draw()
+            r = reader
+            r.menu_draw()
         if self.game_state == 2:
             if music_player.playing == True:
                 #print('AUDIO IS PLAYING')
@@ -445,6 +446,20 @@ class Reader():
         # print("DATA LENGTH %s"%len(data))
         # print("CURRENT CHAPTER %s"%self.current_chapter)
         self.total_chapters = len(data)
+
+        if self.current_chapter >= self.total_chapters:
+            print('Chapter_num =' + str(chapter_num))
+            print('exiting from timeline read: current chapter is greater than total chapters')
+            return  # no more chapters
+        
+        self.total_pages = len(data[chapter_num])-1
+
+        if self.current_page >= self.total_pages:
+            print('Page_num =' + page_num)
+            print('exiting from timeline read: current page is greater than total pages')
+            return
+        #if self.current_page >= self.total_pages:
+        #    return  # no more pages in this chapter
         page_data = data[chapter_num]['page%s'%page_num]
         print("Page data: %s -- Page data end" % page_data)
         #[chapter_num][page_num]
@@ -457,7 +472,7 @@ class Reader():
 
 
         #pass
-        self.total_pages = len(data[chapter_num])-1
+        #self.total_pages = len(data[chapter_num])-1
 
         #for i in data['content']:
         #    print(timeline_id)
@@ -697,6 +712,14 @@ class Reader():
                       font_size=36,
                       x=10, y=10,
                       color=(0, 255, 0, 255))
+        #dynamic menu label
+        current_progress_label = f"Chapter {self.current_chapter} Page {self.current_page}"
+        menu_label2 = pyglet.text.Label(current_progress_label,
+                font_name = 'times',
+                font_size = 77,
+                x=10, y =250,
+                color=(0, 0, 0, 255))
+
         #chrono_cross = menu_label.get_style("Chrono Cross")
         # menu_label.set_style(0,
         #
@@ -707,10 +730,9 @@ class Reader():
         #self.menu_anim_array=['white.png','black.png']
         menu_pic = pyglet.image.load('resources/frames/'+self.menu_anim_array[self.menu_count])
         menu_pic.blit(0,0)
-        print(menu_pic)
-        print('menu count =' + str(self.menu_count))
+        #print('menu count =' + str(self.menu_count))
         menu_label.draw()
-
+        menu_label2.draw()
 
 class Memory():
     def __init__(self):
@@ -725,6 +747,7 @@ class Memory():
         self.dictionary['chapter'] = reader.current_chapter
         print(datetime.now())
         self.dictionary['date_saved'] = str(datetime.now())
+        self.dictionary['completion'] = 0 #to be added
         with open('save_data.json', 'w') as outfile:
             json.dump(self.dictionary, outfile)
         #print(self.dictionary)
@@ -733,8 +756,10 @@ class Memory():
             json_object = json.load(openfile)
         #print(json_object)
         self.dictionary['chapter'] = json_object['chapter']
+        self.dictionary['completion'] = json_object['completion']
         reader.current_chapter = self.dictionary['chapter']
         reader.latest_page = 0
+        reader.current_page = 0
         #print(self.dictionary)
 
 class Completion():
