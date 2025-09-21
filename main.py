@@ -78,6 +78,16 @@ class Window(pyglet.window.Window):
                 if self.togglefullscreen == 1:
                     self.togglefullscreen = 0
                     print('Small screened')
+        #if KEY == key.L:
+        if KEY == 108 :
+            print("L Key pressed")
+            if reader.log == 0:
+                reader.log = 1
+                print('log turned on')
+            else:
+                if reader.log == 1:
+                    reader.log = 0
+                    print('log turned off')
         '''
         if KEY  == 65507:
             #CTRL pressed
@@ -89,9 +99,11 @@ class Window(pyglet.window.Window):
         if KEY == 65507:
             print('CTRL released')
             self.skip_on = 0
+
     def on_mouse_scroll(self,x,y,scroll_x,scroll_y):
         print(scroll_y)
         if self.game_state == 3:
+            reader.log =0
             if scroll_y > 0 and reader.current_page > 0 and reader.current_page < reader.total_pages:
                 reader.current_page = reader.current_page - 1
                 reader.timeline_read(reader.current_page)
@@ -224,7 +236,9 @@ class Window(pyglet.window.Window):
             r.letter_load()
             r.label_draw(r.inversion)
             r.speaker_label_draw(r.inversion)
-            
+            if r.log:
+                r.log_draw()
+                #print('Log drawing in on_draw')
             if self.skip_on == 1:
                 r.skip = 1
                 print('CTRL on draw')
@@ -258,7 +272,7 @@ class Window(pyglet.window.Window):
                                 #print('MUSiC is playing')
                                 if music_que == 'STOP':
                                     music_player.pause()
-                            elif music_que == 'PLAY':
+                            if music_que == 'PLAY':
                                 music = pyglet.resource.media(music_file)
                                 music_player.queue(music)
                                 music_player.next_source()
@@ -428,6 +442,7 @@ class Reader():
         self.skip = 0 
         self.menu_count = 0
         self.menu_anim_array=['010901.png','010902.png']
+        self.log = 0
         #self.page_location = 720
         print('Reader created')
     def timeline_read(self,timeline_id):
@@ -588,6 +603,64 @@ class Reader():
 
             #label.draw()
             layout2.draw()
+    def log_draw(self):
+        if reader.log and reader.latest_page > 1:
+            #reader.log_content
+            #page_data = self.timeline_content
+            page_data = str(data[self.current_chapter]['page%s'%self.current_page][0])
+            '''
+            if (int(self.current_page)) > 0:
+                print('more than 1 page')
+                page_data = str(data[self.current_chapter]['page%d'% (int(self.current_page)-1)][0][0])+'\n'+page_data
+            '''
+            
+            curr_page = int(self.current_page)
+            prev_page = curr_page - 1
+            '''
+            prev_text = ""
+            if prev_page >= 0:  # must be non-negative
+                chapter_data = data[self.current_chapter]
+                page_key = f'page{prev_page}'
+                if page_key in chapter_data:
+                    page_content = chapter_data[page_key]
+                    if isinstance(page_content, list) and len(page_content) > 0:
+                        first_item = page_content[0]
+                        if isinstance(first_item, list) and len(first_item) > 0:
+                            prev_text = str(first_item[0])
+
+            # Build final page_data safely
+            if prev_text:
+                page_data = prev_text + '\n' + page_data
+
+            '''
+            prev_lines = []
+            if prev_page >= 0:
+                chapter_data = data[self.current_chapter]
+                page_key = f'page{prev_page}'
+                if page_key in chapter_data:
+                    for sublist in chapter_data[page_key]:
+                        prev_lines.append(str(sublist))
+
+            if prev_lines:
+                page_data = "\n".join(prev_lines) + "\n" + page_data
+
+            print(page_data)
+            document_content3 = "{.margin_left '10px'}{font_name 'Chrono Cross'}{font_size 20}{bold False}{wrap True}{color (0, 255, 0, 255)}"+page_data
+            #print(document_content3)
+            document3 = pyglet.text.decode_attributed(document_content3)
+            #width = window.width//1.35
+            width = window.width//2
+            height = window.height-100
+            layout3 = pyglet.text.layout.TextLayout(document3, width ,height, wrap_lines=True, multiline=True)
+            layout3.draw()
+            #log_label = pyglet.text.Label(page_data,
+            #          font_name='Chrono Cross',
+            #          font_size=20,
+            #          x=10, y=window.height//3,
+            #          color=(0, 255, 0, 255),
+            #          )
+            #log_label.draw()
+
 
     def letter_load(self):
         #print(self.current_page)
