@@ -94,7 +94,7 @@ class Window(pyglet.window.Window):
             print('CTRL pressed, window')
             #window.on_mouse_release(0, 0, 1, 0)
             #reader.skip = 1
-        '''    
+        '''
     def on_key_release(self, KEY, MOD):
         if KEY == 65507:
             print('CTRL released')
@@ -103,7 +103,7 @@ class Window(pyglet.window.Window):
     def on_mouse_scroll(self,x,y,scroll_x,scroll_y):
         print(scroll_y)
         if self.game_state == 3:
-            reader.log =0
+            #reader.log =0
             if scroll_y > 0 and reader.current_page > 0 and reader.current_page < reader.total_pages:
                 reader.current_page = reader.current_page - 1
                 reader.timeline_read(reader.current_page)
@@ -112,11 +112,13 @@ class Window(pyglet.window.Window):
                 reader.timeline_read(reader.current_page)
 
     def on_mouse_release(self,x,y,button, modifiers):
+        '''Might need to abstract a function here like load new page or something for clarity. like make everything after gamestate check a method within reader possibly '''
         print(button)
         print(x)
         print(y)
         if button == 1:
             #print('left click mouse')
+
             if self.game_state == 3:
                 #if game in play mode
                 #print stats
@@ -126,14 +128,22 @@ class Window(pyglet.window.Window):
                 print("CURRENT LATEST %s"%reader.latest_page)
                 print("CURRENT CHAPTER %s"%reader.current_chapter)
                 print('TOTAL PAGES:%s'%reader.total_pages)
+                #reader.build_timeline_text(data)
 
                 if reader.current_page < reader.latest_page:
                 #if Backlog
                     reader.label_content = ""
                     #turn page with BACKLOG
-                    reader.current_page = reader.current_page + 1
+                    reader.current_page += 1
 
                     reader.timeline_read(reader.current_page)
+                    ''' PLAY AUDIO when backlog'''
+                    audioPlayer.stop()
+                    if reader.audio_que:
+                        audioPlayer.play(reader.audio_que)
+                    else:
+                        print("No audio que'd")
+
                 #if Current
                 else:
                     #if currently letter loading
@@ -150,6 +160,15 @@ class Window(pyglet.window.Window):
                         #reader.latest_page = reader.latest_page + 1
 
                         reader.label_content_index = len(reader.timeline_array)-1
+                        '''PLAY AUDIO on mouse release when letterload'''
+
+                        audioPlayer.stop()
+                        if reader.audio_que:
+                            audioPlayer.play(reader.audio_que)
+                        else:
+                            print("No audio que'd")
+
+
 
                     #being Latest, if letterloading will load all the text without doing anything else,  increase
                     #reader.latest_page = reader.latest_page + 1
@@ -164,12 +183,13 @@ class Window(pyglet.window.Window):
                             reader.label_content = "";
                             #if reader.current_page < reader.latest_page:
 
-                            reader.current_page = reader.current_page + 1
+                            reader.current_page += 1
                             '''Turn Page'''
 
                             if reader.current_page > reader.latest_page:
                                 #new page
-                                reader.latest_page = reader.latest_page + 1
+
+                                reader.latest_page += 1
 
 
                             # if reader.current_page > reader.latest_page:
@@ -184,24 +204,31 @@ class Window(pyglet.window.Window):
 
                         if reader.current_page == reader.total_pages:
                             #last page in chapter
-                             reader.current_chapter = reader.current_chapter + 1
+                             reader.current_chapter += 1
                              reader.latest_page = 0
                              reader.current_page = 0
                              #reader.current_page = -1
                              print('new chapter started')
 
                         reader.timeline_read(reader.current_page)
+                        '''
+                        mouse release after letter loading finished (normal click)'''
+                        audioPlayer.stop()
+                        #stop ongoing sound fx from last page
+                        if reader.audio_que:
+                            audioPlayer.play(reader.audio_que)
+                        else:
+                            print("No audio que'd")
+                        #start sound fx from new page on mouseclicka
 
 
-                    if reader.current_chapter == reader.total_chapters:
+
+                    if reader.current_chapter >= reader.total_chapters:
                         #last chapter in route
                         completion.route_finish()
                         pyglet.app.exit()
 
-                audioPlayer.stop()
-                #stop ongoing sound fx from last page
-                audioPlayer.play(reader.audio_que)
-                #start sound fx from new page on mouseclick
+
 
 
     def on_draw(self):
@@ -237,11 +264,18 @@ class Window(pyglet.window.Window):
             r.label_draw(r.inversion)
             r.speaker_label_draw(r.inversion)
             if r.log:
+                #r.build_timeline_text(data)
                 r.log_draw()
+
                 #print('Log drawing in on_draw')
             if self.skip_on == 1:
                 r.skip = 1
                 print('CTRL on draw')
+            # if r.current_chapter==0 and r.current_page==0 and not hasattr(AudioPlayer, "player"):
+            #     print('play music on first page')
+            #     audioPlayer.stop()
+            #     audioPlayer.play(r.audio_que)
+
 
             is_latest_page = r.current_page >= r.latest_page
             at_last_page = r.current_page + 1 > r.total_pages
@@ -268,16 +302,22 @@ class Window(pyglet.window.Window):
                     music_que, music_file = r.audio_que[0], r.audio_que[1]
                     #music = pyglet.resource.media(music_file)
                     if r.current_page == r.latest_page:
-                            if music_player.playing:
-                                #print('MUSiC is playing')
-                                if music_que == 'STOP':
+                        if music_player.playing:
+                            #print('MUSiC is playing')
+                            if music_que == 'STOP':
+                                if music_player.playing:
                                     music_player.pause()
+                            if not music_que == 'STOP' and not music_que == 'PLAY':
+                                print("Unhandled command:{}".format(music_que))
+
+                        else:
                             if music_que == 'PLAY':
                                 music = pyglet.resource.media(music_file)
-                                music_player.queue(music)
+                                if music:
+                                    music_player.queue(music)
                                 music_player.next_source()
                                 music_player.play()
-                            else:
+                            if not music_que == 'STOP' and not music_que == 'PLAY':
                                 print("Unhandled command:{}".format(music_que))
 
 
@@ -439,10 +479,12 @@ class Reader():
         self.character_meta ={}
         self.inversion = 0
         self.specialscroll = 0 #future function which allows for backtracking into a different timeline
-        self.skip = 0 
+        self.skip = 0
         self.menu_count = 0
         self.menu_anim_array=['010901.png','010902.png']
         self.log = 0
+        self.timeline_text = ""
+        self.timeline_buffer = []
         #self.page_location = 720
         print('Reader created')
     def timeline_read(self,timeline_id):
@@ -466,7 +508,7 @@ class Reader():
             print('Chapter_num =' + str(chapter_num))
             print('exiting from timeline read: current chapter is greater than total chapters')
             return  # no more chapters
-        
+
         self.total_pages = len(data[chapter_num])-1
 
         if self.current_page >= self.total_pages:
@@ -530,6 +572,10 @@ class Reader():
             self.inversion = self.timeline_que[2]
 
         self.audio_que = (self.audio_que + ["", "", ""])[:3]
+
+        self.build_timeline_text()
+
+
 
         '''
         loop, loop_duration, fade, low pass, high pass, distortions = self.audio_meta
@@ -603,19 +649,52 @@ class Reader():
 
             #label.draw()
             layout2.draw()
+    def build_timeline_text(self):
+        """Build timeline string from the last 10 pages including the current_page."""
+        chapter_data = data[self.current_chapter]
+
+        # Compute the window of pages to show
+        start_page = max(0, self.current_page - 9)   # 9 previous + current = 10
+        end_page = self.current_page + 1             # include current page
+
+        timeline_pages = []
+        for page in range(start_page, end_page):
+            page_key = f"page{page}"
+            if page_key not in chapter_data:
+                continue
+
+            page_lines = []
+            for sublist in chapter_data[page_key]:
+                if (
+                    isinstance(sublist, list)
+                    and len(sublist) > 1
+                    and isinstance(sublist[1], str)
+                    and sublist[1].strip()
+                ):
+                    safe_text = sublist[1].replace("{", "{{").replace("}", "}}")
+                    page_lines.append(safe_text.strip())
+
+            if page_lines:
+                timeline_pages.append("\n".join(page_lines))
+
+        # Store directly instead of appending
+        self.timeline_buffer = timeline_pages
+        self.timeline_text = "\n\n".join(self.timeline_buffer)
+
     def log_draw(self):
         if reader.log and reader.latest_page > 1:
             #reader.log_content
             #page_data = self.timeline_content
-            page_data = str(data[self.current_chapter]['page%s'%self.current_page][0])
+
+            #page_data = str(data[self.current_chapter]['page%s'%self.current_page][0])
             '''
             if (int(self.current_page)) > 0:
                 print('more than 1 page')
                 page_data = str(data[self.current_chapter]['page%d'% (int(self.current_page)-1)][0][0])+'\n'+page_data
             '''
-            
-            curr_page = int(self.current_page)
-            prev_page = curr_page - 1
+
+            #curr_page = int(self.current_page)
+            #prev_page = curr_page - 1
             '''
             prev_text = ""
             if prev_page >= 0:  # must be non-negative
@@ -633,6 +712,7 @@ class Reader():
                 page_data = prev_text + '\n' + page_data
 
             '''
+            '''
             prev_lines = []
             if prev_page >= 0:
                 chapter_data = data[self.current_chapter]
@@ -643,9 +723,10 @@ class Reader():
 
             if prev_lines:
                 page_data = "\n".join(prev_lines) + "\n" + page_data
+            '''
+            #print(page_data)
 
-            print(page_data)
-            document_content3 = "{.margin_left '10px'}{font_name 'Chrono Cross'}{font_size 20}{bold False}{wrap True}{color (0, 255, 0, 255)}"+page_data
+            document_content3 = "{.margin_left '10px'}{font_name 'Chrono Cross'}{font_size 20}{bold False}{wrap True}{color (0, 255, 0, 255)}"+self.timeline_text
             #print(document_content3)
             document3 = pyglet.text.decode_attributed(document_content3)
             #width = window.width//1.35
@@ -788,8 +869,8 @@ class Reader():
         #dynamic menu label
         current_progress_label = f"Chapter {self.current_chapter} Page {self.current_page}"
         menu_label2 = pyglet.text.Label(current_progress_label,
-                font_name = 'times',
-                font_size = 77,
+                font_name = 'Times New Roman',
+                font_size = 200,
                 x=10, y =250,
                 color=(0, 0, 0, 255))
 
@@ -865,8 +946,13 @@ class AudioPlayer():
         #check que string for commands: STOP, START, FADE, VOICE, BGM
         #VOICE LINE stop currently playing and play new ones
     def stop(self):
-        if audio_player.playing == True:
-            audio_player.pause()
+        if hasattr(self, "player") and self.player:
+            self.player.pause()
+            self.player.delete()
+            self.player = None
+
+        #if audio_player.playing == True:
+        #    audio_player.pause()
     def end(self):
         audio_player.delete()
 
@@ -927,10 +1013,12 @@ if __name__ == '__main__':
     #start_menu = classes.Start_menu()
 
     #pyglet.sprite.Sprite(img=pyglet.image.load('picture.png')).draw()
-
+    #pyglet.font.add_file('resources/fonts/times.ttf')
+    pyglet.resource.add_font('times.ttf')
+    pyglet.font.load('Times New Roman')
     pyglet.resource.add_font('Chrono Cross.ttf')
     pyglet.font.load('Chrono Cross')
-
+    os.environ["PYGLET_AUDIO_DRIVER"] = "openal"
     def on_close():
         pyglet.font.quit()
     # Get the font name used at character index 0
@@ -977,8 +1065,6 @@ if __name__ == '__main__':
             reader.timeline_read(reader.current_page)
 
 
-                #audioPlayer.play(reader.audio_que)
-
         elif window.game_state == 3:
             #Game mode
             '''
@@ -1010,7 +1096,7 @@ if __name__ == '__main__':
 
                 if reader.menu_anim_array:
                     reader.menu_count = reader.animation_counter % len(reader.menu_anim_array)
-                    
+
                 if reader.playthrough and reader.animation_counter >= frames_length -1:
                     print("Playthrough flag detected")
                     window.on_mouse_release(0, 0, 1, [])
